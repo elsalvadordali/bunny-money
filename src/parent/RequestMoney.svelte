@@ -1,0 +1,95 @@
+<script lang="ts">
+	import { doc, updateDoc } from 'firebase/firestore';
+	import Toast from '../Toast.svelte';
+	import { db } from '../checkAuth';
+	import type { kidObj, userType } from '../types';
+	import { parent } from '../stores';
+	import { convertDate2String } from '../scripts';
+	export let kid: kidObj = null;
+	let requestedAmount = 0;
+	let memo = '';
+	let user: userType;
+
+	let visible = false;
+	let toast = '';
+	let showMore = false;
+	parent.subscribe((val) => (user = val));
+
+	async function requestMoney() {
+		if (requestedAmount <= 0) {
+			toast = 'Request more than 0.';
+			visible = true;
+			requestedAmount = 0;
+			return;
+		}
+		//verigy amount > 0 and not weird
+		//svelte-forms !!!!
+		if (kid) {
+			kid.pending.push({
+				date: convertDate2String(new Date()),
+				amount: requestedAmount,
+				memo
+			});
+			if (user) {
+				let newKids = user.kids.map((eachKid: kidObj) => {
+					if (eachKid && kid && eachKid.name == kid.name) {
+						return kid;
+					} else {
+						return eachKid;
+					}
+				});
+				const parRef = doc(db, 'parents', user.uid);
+				await updateDoc(parRef, { kids: newKids });
+				parent.updateKids(newKids);
+				parent.subscribe((val) => (user = val));
+				toast = `Requested \$${requestedAmount} from ${kid.name}`;
+				visible = true;
+				requestedAmount = 0;
+				memo = '';
+			}
+		}
+	}
+</script>
+
+<div class="w-full pt-4 {showMore && 'pb-4'} mt-4">
+	<Toast {visible} message={toast} />
+
+	<button
+		on:click={() => (showMore = !showMore)}
+		class="border-black border-2 bg-pink rounded-md p-2 pl-4 pr-4 mb-1 shaded"
+		>{showMore ? 'close' : 'Request payment'}</button
+	>
+	{#if showMore}
+		<div class="w-full bg-green border-black border-2 text-white rounded-xl shaded p-4 mt-4">
+			<h3 class="text-xl mb-8">Request payment</h3>
+			<div class="grid grid-cols-3 grid-row-3 gap-4">
+				<input
+					id="add"
+					type="number"
+					max="0"
+					min="100000"
+					bind:value={requestedAmount}
+					placeholder="0"
+					class=" p-2 outline-none text-center col-start-1 row-start-1 bg-pink rounded-md shaded big-shade w-23"
+				/>
+
+				<label for="add" class="text-center italic row-start-1 col-start-2 col-span-2 pt-2"
+					>(from checking)</label
+				>
+				<label for="memo" class="col-start-1 row-start-2 text-center pt-2">Memo</label>
+				<input
+					id="memo"
+					type="text"
+					bind:value={memo}
+					placeholder="for movie tickets"
+					class="p-2 pl-4 pr-4 outline-none row-start-2 col-start-2 col-span-2 bg-pink rounded-md shaded big-shade w-56"
+				/>
+				<button
+					on:click={requestMoney}
+					class="bg-yellow border-pink shaded border-2 p-2 pl-6 pr-6 rounded-md col-start-3 row-start-3 mb-1 h-5"
+					>request</button
+				>
+			</div>
+		</div>
+	{/if}
+</div>
