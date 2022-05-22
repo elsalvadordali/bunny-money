@@ -62,22 +62,19 @@
 
 {#if kid}
 	<Toast {message} {visible} />
-	<div class="block w-full bg-black75 flex justify-center items-center absolute top-0 left-0 p-8">
+	<div class="block w-full h-full bg-black75 flex justify-center items-center absolute top-0 left-0 p-2 pb-8">
 		<div
-			class="w-56 bg-pink rounded-xl shaded m-4 p-4 mt-8 m-8 center col"
+			class="bg-pink rounded-xl shaded p-4 mt-8 m-2 center col"
 			use:clickOutside
-			on:click_outside={() => (openEdit = false)}
-		>
+			on:click_outside={() => (openEdit = false)} >
 			<div class="w-full flex flex-row justify-end">
 				<button
 					class="border-black bg-pink border-2 rounded-md shaded p-2 pl-4 pr-4 mb-1"
-					on:click={() => (openEdit = false)}>Close X</button
-				>
+					on:click={() => (openEdit = false)}>Close X</button>
 			</div>
 
 			<div
-				class="w-full m-4 justify-evenly bg-green border-black border-2 rounded-xl p-2 pt-8 pb-8 shaded"
-			>
+				class="w-full m-2 justify-evenly bg-green border-black border-2 rounded-xl p-2 pt-8 pb-8 mb-4 mt-4 shaded">
 				<label for="name" class="pt-2">change name</label>
 				<input
 					type="text"
@@ -93,16 +90,16 @@
 			<RequestMoney {kid} />
 
 
-			<div class="w-full border-black bg-yellow border-2 p-8 rounded-xl shaded m-4">
-				<h2 class="mb-4">Adjust Allowance</h2>
+			<div class="w-full border-black bg-yellow border-2 p-2 rounded-xl shaded m-2 mt-4 ">
+				<h2 class="mb-4 text-2xl">Adjust Allowance</h2>
 				<h3>Current balance: ${kid.checkingAccount.balance.toFixed(2)}</h3>
 				<div>
                     <Allowance bind:kid />
 				</div>
 			</div>
 
-			<div class="w-full border-black border-2 p-8 m-4 rounded-xl shaded">
-				<h2 class="mb-4">Adjust Interest</h2>
+			<div class="w-full border-black border-2 p-2 m-2 mt-4 mb-4 rounded-xl shaded">
+				<h2 class="mb-4 text-2xl">Adjust Interest</h2>
 				<h3>Current balance: ${kid.savingsAccount.balance.toFixed(2)}</h3>
 				{#if kid}
 				<Interest bind:kid />
@@ -110,26 +107,22 @@
 			</div>
 			<button
 				on:click={updateCurrentKid}
-				class="p-2 pl-6 pr-6  border-black bg-green border-2 rounded-md shaded mb-8 big-margin"
+				class="p-2 pl-6 pr-6 border-black bg-green border-2 rounded-md shaded mb-1"
 				>Save changes</button
 			>
+			<div class='mb-4 mt-4'>
 			<button
 				on:click={deleteChild}
 				class="p-2 pl-6 pr-6 bg-pink border-black border-2 mb-1 rounded-md shaded big-shade button"
 				>Delete child</button
 			>
 		</div>
+		</div>
 	</div>
 {/if}
 
 <style>
-	.big-margin:hover,
-	.big-margin:active,
-	.big-margin:focus {
-		margin-top: 0.25rem;
-		margin-bottom: 1.75rem;
-		box-shadow: none;
-	}
+
 	.button:hover {
 		margin-top: 0.25em;
 		margin-bottom: 0;

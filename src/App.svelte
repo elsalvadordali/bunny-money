@@ -18,7 +18,7 @@
 	});
 </script>
 
-<div class="bg-green" >
+<div class="bg-green">
 {#if user}
 	{#if user && user.uid == '0'}
 		SPLASH

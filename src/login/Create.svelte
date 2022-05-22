@@ -85,7 +85,7 @@ import { bind } from 'svelte/internal';
 		<Toast {message} {visible} />
 		<div class='bg-pink rounded-xl p-4'>
 			<div class="m-4 p-4 mt-8 m-8 center justify-end">
-				<button class="border-black bg-pink border-2 rounded-md p-2 pl-4 pr-4 mb-1 shaded" on:click={() => (value = false)}>Close X</button>
+				<button class="text-black border-black bg-pink border-2 rounded-md p-2 pl-4 pr-4 mb-1 shaded" on:click={() => (value = false)}>Close X</button>
 			</div>
 			<div class='w-56 line m-4 border-black border-2 shaded bg-green rounded-xl'>
 				<label for='name' class='m-4 w-13'>Kid's name</label>
@@ -114,7 +114,7 @@ import { bind } from 'svelte/internal';
 				</div>
 			</div>
 			<div class="m-4 center justify-end">
-				<button class="rounded-md bg-yellow border-black border-2 shaded big-shade" on:click={createKid}>Create new Account</button>
+				<button class="text-black rounded-md bg-yellow border-black border-2 shaded big-shade" on:click={createKid}>Create new Account</button>
 			</div>
 		</div>
 </div>

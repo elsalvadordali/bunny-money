@@ -3,6 +3,7 @@
 	import Account from './Account.svelte';
 	import CreateKid from '../login/Create.svelte';
 	import Logout from '../login/Logout.svelte'
+	import Pending from './Pending.svelte'
 	import { fetchUser } from '../checkAuth';
 	import { parent } from '../stores';
 
@@ -12,7 +13,8 @@
 
     let src = '/images/user-circle.svg'
 	let newKidModal = false;
-    console.log(user.kids.length)
+
+	
 </script>
 
 <div class="bg-green">
@@ -38,14 +40,16 @@
 					Create now
 				</button>
 			</div>
+
 		{:else if user}
+			<Pending {user} />
 			{#each user.kids as account}
 				<div class="border-b-2 border-yellow">
                     <Account kid={account}/>
 				</div>
 			{/each}
 			<div
-				class="bg-pink border-black border-2 rounded-xl m-6 p-6 pt-16 pb-16 center"
+				class="bg-pink border-black border-2 shaded rounded-xl m-2 p-2 mt-8 mb-8 pt-8 pb-8 center"
 			>
 				<button
 					on:click={() => (newKidModal = !newKidModal)}

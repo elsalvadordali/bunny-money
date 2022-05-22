@@ -6,20 +6,17 @@
 </script>
 
 <div class="center col bg-green">
-	<div class="w-full h-36 pt-56 pb-56 bg-pink center">
+	<div class="w-full bg-pink center">
 		<div
-			class="rounded-full m-16 bg-black w-60 h-60 center col text-white"
+			class="rounded-full m-8 bg-black w-60 h-60 center col text-white"
 		>
 			<h2 class="italic text-4xl">Bunny</h2>
 			<h1 class="text-5xl">Money!</h1>
 		</div>
 	</div>
-	<div class="bg-pink w-full text-center pb-8">
-		<p class="m-4">The best money saving tool for kids</p>
-	</div>
 
 	{#if loginTab}
-		<div class="pt-8 w-5/6 p-4">
+		<div class="pt-8 p-4">
 			<label class="bg-yellow p-4 rounded-t-xl">
 				<input type="radio" bind:group={loginTab} name="switchForm" value={true} class="hidden" />
 				<h2 class="text-xl inline-block p-4 rounded-t-md">Login</h2>

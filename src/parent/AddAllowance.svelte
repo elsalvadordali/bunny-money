@@ -74,21 +74,19 @@
 	>
 	{#if showMore}
 		<div
-			class="grid grid-cols-3 grid-rows-4 gap-4 p-8 bg-black border-green border-2 text-white rounded-xl green-shaded mt-4"
-		>
-			<h3 class="text-xl row-start-1 col-start-1 col-span-3">Add funds</h3>
+			class="grid grid-cols-3 grid-rows-4 gap-4 p-2 bg-black border-green border-2 text-white rounded-xl green-shaded mt-4">
+			<h3 class="text-xl row-start-1 col-start-1 col-end-4">Add funds</h3>
 
 			<input
-				class="col-start-1 w-23 w-full row-start-2 text-center outline-none text-black bg-pink rounded-md green-shaded big-green"
+				class="col-start-1 w-50 row-start-2 text-center outline-none text-black bg-pink rounded-md green-shaded big-green"
 				id="amount"
 				placeholder="20"
 				type="number"
-				bind:value={toAdd}
-			/>
-			<label for="amount" class="col-start-2 col-span-2 row-start-2 pt-2">(to checking)</label>
+				bind:value={toAdd} />
+			<label for="amount" class="col-start-2 col-end-4 row-start-2 pt-2">(to checking)</label>
 			<label for="memo" class="col-start-1 row-start-3 text-right pt-2">memo</label>
 			<input
-				class="col-start-2 col-span-2 row-start-3 w-56 text-center outline-none bg-green rounded-md pink-shade big-pink text-black"
+				class="col-start-2 box col-end-4 row-start-3 box-height w-100 text-center outline-none bg-green rounded-md pink-shade big-pink text-black"
 				id="memo"
 				bind:value={memo}
 				placeholder="gift from grandma"
@@ -101,8 +99,7 @@
 	{/if}
 	{#if false}
 		<div
-			class="w-full bg-yellow p-8 rounded-xl shaded grid grid-col-3 grid-row-3 gap-4 mt-4 mb-4"
-		>
+			class="w-full bg-yellow p-8 rounded-xl shaded grid grid-col-3 grid-row-3 gap-4 mt-4 mb-4">
 			<input
 				id="add"
 				type="number"
@@ -110,19 +107,18 @@
 				max="100000"
 				bind:value={toAdd}
 				placeholder="0"
-				class="pretty bg-pink rounded-none border-black border-b-2 p-2 outline-none text-center col-start-1 row-start-1 w-23"
-			/>
+				class="bg-pink rounded-none border-black border-b-2 p-2 outline-none text-center col-start-1 row-start-1 w-23"/>
 
-			<label for="add" class="text-center italic row-start-1 col-start-2 col-span-2 pt-2 text-right"
-				>(to checking)</label
-			>
+			<label for="add" class="text-center italic row-start-1 col-start-2 col-span-2 pt-2 text-right">
+				(to checking)
+			</label>
 			<label for="memo" class="col-start-1 row-start-2 text-center pt-2">Memo</label>
 			<input
 				id="memo"
 				type="text"
 				bind:value={memo}
 				placeholder="from Grandma"
-				class="italic bg-green p-2 pl-4 pr-4 outline-none w-full  row-start-2 col-start-2 col-end-4"
+				class="italic bg-green p-2 pl-4 pr-4 outline-none row-start-2 col-start-2 col-end-4 w-16"
 			/>
 			<button
 				on:click={addToChecking}

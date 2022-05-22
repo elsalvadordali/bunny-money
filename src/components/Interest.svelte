@@ -22,13 +22,14 @@
 <div class="line-between mt-4 mb-4">
 	<Toast {message} {visible} />
 		<input
+		id='int'
 			type="number"
 			on:change={check}
 			bind:value={amount}
-			class="w-16 outline-none text-center mr-3 bg-yellow p-2 rounded-md shaded big-shade"
+			class="w-13 outline-none text-center mr-3 bg-yellow p-2 rounded-md shaded big-shade"
 		/>
 
-		% interest per
+		<p class="text-center">% per</p>
 		<select bind:value={kid.savingsAccount.compounded} class="w-13 bg-yellow shaded rounded-md p-2 ml-3">
 			{#each options as option}
 				{#if option == kid.savingsAccount.compounded}
@@ -40,8 +41,21 @@
 		</select>
 		
 	</div>
-	<p class="text-center m-4">
+	<p class="text-center">
 		(that's {calculated ? calculated.toFixed(2) : 'no interest'} per {kid.savingsAccount
 			.compounded})
 	</p>
 {/if}
+
+<style>
+	#int::after {
+		content: '%';
+		position: relative;
+		left: 0;
+		right: 0;
+		z-index: 999;
+	}
+	p {
+		line-height: 1rem;
+	}
+</style>

@@ -7,6 +7,7 @@
 	import { signInWithEmailAndPassword } from 'firebase/auth';
 	import { parent } from '../stores';
 	import Confirm from '../Confirm.svelte';
+import { dataset_dev } from 'svelte/internal';
 
 	let message = 'hello';
 	let visible = false;
@@ -18,7 +19,25 @@
 	let user: userType = null;
 	let kid: kidObj | null | 0 = null;
 
-	const login = async () => {
+	const login = async (e) => {
+		e.preventDefault()
+		if (isParent) {
+			await signInWithEmailAndPassword(auth, email, password)
+			.then(async (value) => {
+				const parRef = doc(db, 'parents', value.user.uid)
+				let userData = await getDoc(parRef)
+				if (userData) {
+					let gottedData = userData.data()
+					console.log(gottedData)
+					parent.set({...gottedData})
+				}
+			})
+		}
+	}
+
+	const loginOOO = async (e) => {
+		e.preventDefault()
+		console.log('logging in')
 		if (name) localStorage.setItem('name', name);
 
 		await signInWithEmailAndPassword(auth, email, password)
@@ -26,23 +45,29 @@
 				const parRef = doc(db, 'parents', value.user.uid);
 				let data = await getDoc(parRef);
 				let parsedData = data.data();
+				console.log(parsedData, ' exists')
 				if (name) {
 					if(parsedData && parsedData.kids.length > 0) {
+						console.log('checking kids')
 					kid = parsedData.kids.find((arrKid: kidObj) => {
 						if (arrKid && arrKid.name.toLowerCase() == name.toLowerCase()) {
 							return arrKid;
 						}
 					});
 					if (kid) {
+						console.log('kid exists', kid)
 						parent.set(kid);
 						parent.subscribe((val) => (user = val));
 					} else {
+						console.log('kid')
 						message = 'No such kid found';
 						visible = true;
 						name = '';
 						boxOpen = true;
 					}
+
 					} else {
+						console.log('has kids, but no kid found')
 						message = 'No such kid';
 						visible = true;
 						
@@ -60,23 +85,25 @@
 				}
 			});
 	};
+
+
 </script>
 
 <Confirm bind:boxOpen {message} />
-<div class="bg-yellow rounded-r-xl rounded-b-xl p-6 mb-8">
-	<form on:submit|preventDefault={login} class="grid grid-row-5 grid-col-2 gap-4 w-full">
+<div class="bg-yellow rounded-r-xl rounded-b-xl p-2 mb-8">
+	<form on:submit|preventDefault={login} class="grid grid-row-5 grid-col-4 gap-4 w-full stretch">
 		{#if !isParent}
-			<label class="text-green clickable"
-				><input type="radio" class="hidden" bind:group={isParent} value={true} />Parent login</label
+			<label class="text-green clickable row-start-1 col-start-1 "
+				><input type="radio" class="hidden" bind:group={isParent} value={true} required />Parent login</label
 			>
-			<label class="border-black border-b-2 italic selected clickable"
-				><input type="radio" class="hidden" bind:group={isParent} value={false} />Kid login</label
+			<label class="border-black border-b-2 row-start-1 col-start-2 italic selected clickable stretch w-100"
+				><input type="radio" class="hidden" bind:group={isParent} value={false} required />Kid login</label
 			>
 		{:else}
-			<label class="border-black border-b-2 italic selected clickable"
-				><input type="radio" class="hidden" bind:group={isParent} value={true} />Parent login</label
+			<label class="border-black border-b-2 italic selected clickable col-start-1 row-start-1"
+				><input type="radio" class="hidden" bind:group={isParent} value={true} required />Parent login</label
 			>
-			<label class="dark:text-green clickable"
+			<label class="dark:text-green clickable col-end-2 row-start-1"
 				><input type="radio" class="hidden" bind:group={isParent} value={false} />Kid login</label
 			>
 		{/if}
@@ -84,10 +111,11 @@
 		<input
 			type="email"
 			autocapitalize="off"
-			class="p-2 w-11/12 rounded-md col-start-2 h-12 row-start-2 bg-pink shaded big-shade"
+			class="p-2 rounded-md col-start-2 h-12 row-start-2 bg-pink shaded big-shade stretch"
 			name="email"
 			id="email"
 			bind:value={email}
+			required
 		/>
 		<label for="password" class="inline-block col-start-1 row-start-3">Password</label>
 		<input
@@ -95,10 +123,11 @@
 			autocapitalize="off"
 			minlength="6"
 			maxlength="32"
-			class="p-2 w-11/12 rounded-md col-start-2 row-start-3 bg-pink shaded big-shade"
+			class="p-2 rounded-md col-start-2 row-start-3 bg-pink shaded big-shade stretch"
 			name="password"
 			id="password"
 			bind:value={password}
+			required
 		/>
 		{#if !isParent}
 			<label for="name" class=" inline-block col-start-1 row-start-4">Kid's name</label>
@@ -108,6 +137,7 @@
 				name="name"
 				id="name"
 				bind:value={name}
+				required
 			/>
 		{/if}
 

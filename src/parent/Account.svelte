@@ -14,7 +14,7 @@
 		<Edit bind:openEdit {kid} />
 	{/if}
 	<div
-		class="bg-pink rounded-xl border-black border-2 shaded m-6 p-6 center col shadow-md"
+		class="bg-pink rounded-xl border-black border-2 shaded m-2 p-2 mb-4 mt-4 center col shadow-md"
 	>
 
 		<div class="w-full row center justify-evenly p-6 border-black border-b-2">

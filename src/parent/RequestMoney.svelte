@@ -51,7 +51,7 @@
 	}
 </script>
 
-<div class="w-full pt-4 {showMore && 'pb-4'} mt-4">
+<div class="w-full pt-4  mt-4">
 	<Toast {visible} message={toast} />
 
 	<button
@@ -60,8 +60,8 @@
 		>{showMore ? 'close' : 'Request payment'}</button
 	>
 	{#if showMore}
-		<div class="w-full bg-green border-black border-2 text-white rounded-xl shaded p-4 mt-4">
-			<h3 class="text-xl mb-8">Request payment</h3>
+		<div class="w-full bg-green border-black border-2 text-white rounded-xl shaded p-2 mt-4">
+			<h3 class="text-xl mt-4 mb-4">Request payment</h3>
 			<div class="grid grid-cols-3 grid-row-3 gap-4">
 				<input
 					id="add"
@@ -70,10 +70,10 @@
 					min="100000"
 					bind:value={requestedAmount}
 					placeholder="0"
-					class=" p-2 outline-none text-center col-start-1 row-start-1 bg-pink rounded-md shaded big-shade w-23"
+					class=" p-2 outline-none text-center col-start-1 row-start-1 bg-pink rounded-md shaded big-shade w-23 right"
 				/>
 
-				<label for="add" class="text-center italic row-start-1 col-start-2 col-span-2 pt-2"
+				<label for="add" class="text-center italic row-start-1 col-start-2 col-end-4 pt-2"
 					>(from checking)</label
 				>
 				<label for="memo" class="col-start-1 row-start-2 text-center pt-2">Memo</label>
@@ -82,7 +82,7 @@
 					type="text"
 					bind:value={memo}
 					placeholder="for movie tickets"
-					class="p-2 pl-4 pr-4 outline-none row-start-2 col-start-2 col-span-2 bg-pink rounded-md shaded big-shade w-56"
+					class="p-2 outline-none row-start-2 col-start-2 col-end-4 bg-pink rounded-md shaded big-shade w-88"
 				/>
 				<button
 					on:click={requestMoney}

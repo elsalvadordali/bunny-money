@@ -1,7 +1,7 @@
 import { onAuthStateChanged } from 'firebase/auth'
 import { doc, getDoc, updateDoc, setDoc } from 'firebase/firestore'
 import { parent } from './stores'
-import type { kidObj } from './types'
+import type { kidObj, userType } from './types'
 
 import { initializeApp } from 'firebase/app'
 import { getAuth } from 'firebase/auth'

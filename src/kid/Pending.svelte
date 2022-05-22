@@ -69,11 +69,11 @@
 	<Confirm bind:boxOpen {message} bind:isConfirmed />
 
 	{#if transactions && transactions.length > 0}
-		<div class="bg-yellow text-black rounded-xl p-4 m-4">
+		<div class="bg-yellow text-black rounded-xl p-4 m-4 border-pink border-2 pink-shade">
 			<h2 class="text-xl italic m-4">Pending transactions</h2>
 			{#each transactions as action, i (i)}
 				<div class="border-black border-b-2 grid grid-col-6 grid-row-3 p-4">
-					<p class="row-start-1 col-start-1 col-span-2 mb-4">$ {action.amount.toFixed(2)}</p>
+					<p class="row-start-1 col-start-1 col-span-2 mb-4 ">$ {action.amount.toFixed(2)}</p>
 
 					<p class="row-start-1 col-start-3 col-span-2 mb-4">{action.date}</p>
 					<p class="row-start-2 col-start-1 col-span-4 mb-4 italic">{action.memo}</p>

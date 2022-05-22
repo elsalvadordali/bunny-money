@@ -18,12 +18,7 @@
 
 	onMount(() => {
 			if (kid) {
-				let newTransactions = calcAllowance(
-					kid.checkingAccount.transactions,
-					kid.checkingAccount.frequency,
-					kid.checkingAccount.allowance,
-					kid.checkingAccount.balance
-				);
+				let newTransactions = calcAllowance(kid);
 				if (kid.checkingAccount.transactions.length != newTransactions.length) {
 					kid.checkingAccount.transactions = newTransactions;
 					while (kid.checkingAccount.balance < newTransactions[0].amount) {

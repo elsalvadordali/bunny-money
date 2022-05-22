@@ -1,6 +1,8 @@
 <script lang="ts">
 	import type { kidObj } from '../types';
 	import Toast from '../Toast.svelte';
+	import { updateKid } from '../checkAuth';
+	import { parent } from '../stores'
 	import { convertDate2String, verifyAmount } from '../scripts';
 	export let kid: kidObj = null;
 	let requestedAmount = 0;
@@ -26,8 +28,10 @@
 					memo,
 					for: 'parent'
 				});
-				//updateKid(kid, kid.uid);
-				//parent.set(kid);
+				updateKid(kid, kid.uid);
+				parent.set(kid);
+				toast = `Requested ${amount} successfully!`
+				visible = true
 			}
 		}
 	}

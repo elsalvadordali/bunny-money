@@ -2,8 +2,6 @@
 	import { fly } from 'svelte/transition';
 	export let message = 'default';
 	export let visible = true;
-	export let isError = false;
-
 	
 	$: {
 		if (visible) {
@@ -22,7 +20,7 @@
 	>
 		<p class="m-4">{message}</p>
 
-		<button on:click={() => (visible = false)} class="bg-yellow rounded-md pl-6 pr-6 mb-1 border-black shaded">X</button>
+		<button on:click={() => (visible = false)} class="text-black bg-yellow rounded-md pl-6 pr-6 mb-1 border-black shaded">X</button>
 	</div>
 {/if}
 

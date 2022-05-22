@@ -1,9 +1,8 @@
 <script lang="ts">
-	import { Transaction } from 'firebase/firestore';
 	import type { kidObj } from '../types';
 
 	export let kid: kidObj = null;
-
+	console.log(kid)
 	let openBox = false;
 </script>
 

@@ -1,3 +1,4 @@
+import { Transaction } from 'firebase/firestore'
 import type { kidObj, transactionType } from './types'
 
 export function verifyAmount(str: string): number | false {
@@ -16,8 +17,36 @@ export function convertDate2String(date: Date): string {
 function convertString2Date(str: string): Date {
   return new Date(str)
 }
+export function calcAllowance(kid: kidObj) {
+  let last = kid.checkingAccount.transactions.find(transaction => {
+    if (transaction.memo == 'allowance') return transaction
+  })
+  if (last) {
+    let previousAllowance = convertString2Date(last.date).valueOf()
+    let incrementBy =
+      howManyDaysIn(kid.checkingAccount.frequency) * 24 * 60 * 60 * 1000
+    while (previousAllowance + incrementBy < new Date().valueOf()) {
+      previousAllowance += incrementBy
+      let transaction: transactionType = {
+        amount: kid.checkingAccount.allowance,
+        currentBalance:
+          kid.checkingAccount.allowance + kid.checkingAccount.balance,
+        date: convertDate2String(new Date()),
+        memo: 'allowance',
+      }
+      kid.checkingAccount.transactions = [
+        transaction,
+        ...kid.checkingAccount.transactions,
+      ]
+    }
+  } else {
+    //this is first allowance ever
+  }
+  console.log(kid.checkingAccount.allowance)
+  return kid.checkingAccount.transactions
+}
 
-export function calcAllowance(
+export function calcAllowanceOLD(
   transactions: transactionType[],
   frequency: string,
   amount: number,
@@ -30,7 +59,8 @@ export function calcAllowance(
   if (last) {
     let previousAllowance = convertString2Date(last.date).valueOf()
     let incrementBy = howManyDaysIn(frequency) * 24 * 60 * 60 * 1000
-    while (previousAllowance < new Date().valueOf()) {
+    console.log(previousAllowance, incrementBy)
+    while (previousAllowance + incrementBy < new Date().valueOf()) {
       previousAllowance += incrementBy
       let transaction = {
         amount,

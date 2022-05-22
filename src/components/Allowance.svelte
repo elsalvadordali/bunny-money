@@ -25,7 +25,7 @@
 </script>
 
 {#if kid}
-	<div class="line-between">
+	<div class="line-between mt-4">
 		<Toast {message} {visible} />
 		<input
 			type="number"
@@ -34,7 +34,7 @@
 			on:change={() => checkInput(amount || 0)}
 			class="w-13 outline-none text-center p-2 bg-black text-white rounded-md green-shaded big-green"
 		/>
-		<p class="m-4 p-4"> per </p>
+		<p class="p-2"> per </p>
 		<select
 			class="bg-green shaded p-2 rounded-md w-13 ml-3"
 			bind:value={kid.checkingAccount.frequency}

@@ -5,7 +5,7 @@ function createParent() {
   const { subscribe, set, update } = writable(null)
   return {
     subscribe,
-    set: (user: userType) => set(user),
+    set: (user: userType | kidObj) => set(user),
     setEmail: (user: userType) => set(user),
     updateKids: (kids: kidObj[]) => {
       update((val: userType) => {
