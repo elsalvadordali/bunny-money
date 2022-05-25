@@ -23,16 +23,9 @@
 </script>
 
 {#if boxOpen}
-	<div
-		class="modal fade fixed top-0 left-0 w-full bg-black/75 h-screen outline-none overflow-x-hidden overflow-y-auto flex justify-center items-center "
-		id="exampleModalCenter"
-		tabindex="-1"
-		aria-labelledby="exampleModalCenterTitle"
-		aria-modal="true"
-		role="dialog"
-	>
+	
 		<div
-			class="w-11/12 bg-pink rounded-xl p-4 flex flex-col items-center shadow-sm shaded absolute "
+			class="sticky w-1112 bg-pink rounded-xl p-2 flex flex-col items-center border-black border-2 shaded"
 			use:clickOutside
 			on:click_outside={() => (boxOpen = false)}
 		>
@@ -41,10 +34,10 @@
 			<div class="m-4 p-4 flex justify-evenly items-center">
 				<button
 					on:click={accept}
-					class="bg-green border-black border-2 shaded p-2 pl-4 pr-4 mr-4 rounded-md mb-1"
+					class="bg-green border-black border-2 shaded p-2 pl-6 pr-6 mr-4 rounded-md mb-1"
 					>OK</button
 				>
-				or
+				<p class='middle'>or</p>
 				<button
 					on:click={() => (boxOpen = false)}
 					class="bg-green border-black border-2 shaded p-2 pl-4 pr-4 rounded-md mb-1 ml-4"
@@ -52,8 +45,16 @@
 				>
 			</div>
 		</div>
-	</div>
+	
 {/if}
 
 <style>
+	.sticky {
+	position: fixed;
+  	left: 50%;
+  	top: 50%;
+  	transform: translate(-50%, -50%);
+	z-index: 500;
+}
+
 </style>

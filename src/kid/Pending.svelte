@@ -4,6 +4,7 @@
 	import Toast from '../Toast.svelte';
 	import { parent } from '../stores';
 	import { updateKid } from '../checkAuth';
+import { action_destroyer } from 'svelte/internal';
 
 	export let kid: kidObj;
 
@@ -19,28 +20,27 @@
 	});
 
 	function acceptTransaction(i: number) {
-		message = `Pay $ ${kid?.pending[i].amount} for ${kid && kid.pending[i].memo}?`;
+		message = `Pay $${kid?.pending[i].amount} ${kid && kid.pending[i].memo}?`;
 		boxOpen = true;
 		currentIndex = i;
 		//BUT THE BOXES MOVE GODDAMN IT
 	}
 
 	function deleteTransaction(i: number) {
+		console.log(i)
 		if (kid) {
 			let res = kid.pending.filter((obj, index) => index != i);
 			toast = 'request denied successfully';
-			parent.set({ ...kid, pending: [...res] });
-			updateKid(kid, kid.uid);
+			parent.set({ ...kid, pending: res });
+			updateKid({...kid, pending: res}, kid.uid);
 			visible = true;
 		} //no kid so error
 	}
 	function updateAll() {
 		if (kid) {
-			let toApprove: transactionType | undefined = kid.pending.find(
-				(kiddo, i) => i == currentIndex
-			);
-			kid.pending = kid.pending.filter((kiddo, i) => i != currentIndex);
-
+			let toApprove: transactionType | undefined = kid.pending.find((kiddo, i) => i == currentIndex);
+			let res = kid.pending.filter((kiddo, i) => i != currentIndex);
+			console.log(res, toApprove)
 			if (toApprove) {
 				let newTransaction: transactionType = {
 					...toApprove,
@@ -49,47 +49,55 @@
 				kid.checkingAccount.transactions = [newTransaction, ...kid.checkingAccount.transactions];
 				kid.checkingAccount.balance = newTransaction.currentBalance || kid.checkingAccount.balance;
 				toast = 'payment sent!';
-				updateKid(kid, kid.uid);
+				let obj: kidObj = {...kid, pending: res}
+				updateKid(obj, kid.uid);
 				visible = true;
-				return parent.set(kid);
+				parent.set(obj);
+				parent.subscribe(val => kid = val)
+				obj = null
+				toApprove = undefined
+				console.log('updated??', kid, obj, kid == obj, toApprove)
+				isConfirmed = false
+			} else {
+				toast = 'Something went wrong. Refresh and try again';
+				visible = true;
 			}
-			toast = 'Something went wrong. Refresh and try again';
-			visible = true;
 		}
 	}
 	$: {
 		if (isConfirmed) updateAll();
 	}
 
-	let transactions = kid?.pending.filter((pend) => pend.for !== 'parent');
 </script>
 
 <div>
-	<Toast message={toast} {visible} />
+	<Toast bind:visible={visible} bind:message={toast} />
 	<Confirm bind:boxOpen {message} bind:isConfirmed />
+	
+	{#if kid.pending && kid.pending.length > 0}
+		<div class="bg-yellow text-black rounded-xl p-2 mb-4 border-pink border-2 pink-shade">
+			<h2 class="text-2xl italic m-2">Pending transactions</h2>
+			{#each kid.pending as action, i (i)}
+				{#if action.for != 'parent'}
+				<div class="border-black border-b-2 grid grid-col-2 grid-row-3 pt-4 pb-4">
+					<p class="row-start-1 col-start-1 mb-2">$ {action.amount.toFixed(2)}</p>
 
-	{#if transactions && transactions.length > 0}
-		<div class="bg-yellow text-black rounded-xl p-4 m-4 border-pink border-2 pink-shade">
-			<h2 class="text-xl italic m-4">Pending transactions</h2>
-			{#each transactions as action, i (i)}
-				<div class="border-black border-b-2 grid grid-col-6 grid-row-3 p-4">
-					<p class="row-start-1 col-start-1 col-span-2 mb-4 ">$ {action.amount.toFixed(2)}</p>
-
-					<p class="row-start-1 col-start-3 col-span-2 mb-4">{action.date}</p>
-					<p class="row-start-2 col-start-1 col-span-4 mb-4 italic">{action.memo}</p>
+					<p class="row-start-1 col-start-2 mb-2">{action.date}</p>
+					<p class="row-start-2 col-start-1 col-end-3 mb-2 italic">{action.memo}</p>
 					<button
 						on:click={() => acceptTransaction(i)}
-						class="bg-green text-black p-2 pr-4 pl-4 mr-2 rounded-md row-start-3 col-start-1 col-span-2 border-black border-2 mb-1 shaded"
+						class="bg-green text-black p-2 pr-4 pl-4 mr-2 rounded-md row-start-3 col-start-1 border-black border-2 mb-1 shaded"
 					>
 						Accept
 					</button>
 					<button
 						on:click={() => deleteTransaction(i)}
-						class="bg-pink text-black p-2 pr-4 pl-4 ml- rounded-md row-start-3 col-start-3 col-span-2 border-black border-2 mb-1 shaded"
+						class="bg-pink text-black p-2 pr-4 pl-4 ml-2 rounded-md row-start-3 col-start-2 border-black border-2 mb-1 shaded"
 					>
 						Deny
 					</button>
 				</div>
+				{/if}
 			{/each}
 		</div>
 	{/if}

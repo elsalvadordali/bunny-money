@@ -1,8 +1,4 @@
 <script lang="ts">
-    import { Transaction } from 'firebase/firestore'
-import { transition_in } from 'svelte/internal'
-import Transactions from '../kid/Transactions.svelte'
-import Transfer from '../kid/Transfer.svelte';
 import type { transactionType, userType } from '../types'
     export let user: userType = null
 	let transactions = []
@@ -18,10 +14,8 @@ import type { transactionType, userType } from '../types'
 					return newOne
 				}
 			})
-			console.log(transactions)
 		})
 	} else {
-		console.log('no user???')
 	}
 		
 	}
@@ -29,14 +23,11 @@ import type { transactionType, userType } from '../types'
 		calcPending()
 	}
 	function accept(toMatch) {
-		console.log(toMatch.kid)
 		let current: transactionType = null
-		console.log(user.kids[toMatch.kid])
 		let pending
 		user.kids.forEach(kid => {
 			kid.pending.filter(transaction => {
 				if (transaction.amount == toMatch.amount && transaction.memo == toMatch.amount) {
-					console.log('found it')
 					current = transaction
 				} else {
 					pending.push(transaction)
@@ -47,16 +38,13 @@ import type { transactionType, userType } from '../types'
 		/*
 		let pending = user[toMatch.kid].pending.filter(transaction => {
 			if (transaction.amount == toMatch.amount && transaction.memo == toMatch.amount) {
-				console.log('found it')
 			} else {
 				return transaction
 			}
 		})
 		*/
-		console.log(pending)
 	}
 	function deny(transaction) {
-		console.log(transaction)
 	}
 </script>
 <div>
@@ -66,7 +54,7 @@ import type { transactionType, userType } from '../types'
 		{#each transactions as transaction}
 		<div class="w-full flex justify-evenly">
 			<p class="p-2">{transaction.date}</p>
-			<p class='p-2'>{transaction.kid}</p>
+			<p class='p-2'>from: {transaction.kid}</p>
 			<p class="p-2 inline m-2">{Number(transaction.amount).toFixed(2)}</p>
 
 		</div>

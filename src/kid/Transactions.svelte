@@ -2,11 +2,10 @@
 	import type { kidObj } from '../types';
 
 	export let kid: kidObj = null;
-	console.log(kid)
 	let openBox = false;
 </script>
 
-<div class="bg-green border-pink border-2 pink-shade rounded-xl p-4 m-4">
+<div class="bg-green border-pink border-2 pink-shade rounded-xl p-2 mt-4">
 	{#if kid}
 		<button
 			on:click={() => (openBox = !openBox)}

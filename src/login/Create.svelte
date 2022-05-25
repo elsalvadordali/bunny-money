@@ -82,7 +82,7 @@ import { bind } from 'svelte/internal';
 
 {#if kid}
 <div class="absolute center col w-full h-full bg-black75 ">
-		<Toast {message} {visible} />
+	<Toast bind:visible={visible} bind:message={message} />
 		<div class='bg-pink rounded-xl p-4'>
 			<div class="m-4 p-4 mt-8 m-8 center justify-end">
 				<button class="text-black border-black bg-pink border-2 rounded-md p-2 pl-4 pr-4 mb-1 shaded" on:click={() => (value = false)}>Close X</button>

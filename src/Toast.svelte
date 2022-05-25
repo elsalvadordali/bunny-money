@@ -1,13 +1,15 @@
 <script lang="ts">
 	import { fly } from 'svelte/transition';
 	export let message = 'default';
-	export let visible = true;
+	export let visible = false;
 	
 	$: {
 		if (visible) {
 			setTimeout(() => {
 				visible = false;
-			}, 3000);
+				message = ''
+				console.log('wtf', visible)
+			}, 5000);
 		}
 	}
 	
@@ -20,7 +22,7 @@
 	>
 		<p class="m-4">{message}</p>
 
-		<button on:click={() => (visible = false)} class="text-black bg-yellow rounded-md pl-6 pr-6 mb-1 border-black shaded">X</button>
+		<button on:click={() => (visible = false)} class="text-blackbg-yellow rounded-md pl-6 pr-6 mb-1 border-black shaded">X</button>
 	</div>
 {/if}
 
@@ -28,9 +30,9 @@
 <style>
 .sticky {
 	position: fixed;
-  	left: 50%;
-  	top: 50%;
-  	transform: translate(-50%, -50%);
+  	left: 1%;
+  	bottom: 1%;
+
 	z-index: 500;
 }
 </style>

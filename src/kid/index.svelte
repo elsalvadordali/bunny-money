@@ -3,11 +3,14 @@
 	import Pay from './Pay.svelte';
 	import Pending from './Pending.svelte';
 	import Transactions from './Transactions.svelte';
+	import Transfer from './Transfer.svelte'
 	import Logout from '../login/Logout.svelte';
 	import { parent } from '../stores';
 	import { onMount } from 'svelte';
 	import { calcAllowance } from '../scripts';
 	import { fly } from 'svelte/transition';
+	import { signOut } from 'firebase/auth';
+	import { auth } from '../checkAuth'
 
 	let kid: kidObj = null;
 	parent.subscribe((val) => {
@@ -15,7 +18,6 @@
 			kid = val;
 		}
 	});
-
 	onMount(() => {
 			if (kid) {
 				let newTransactions = calcAllowance(kid);
@@ -26,12 +28,14 @@
 					}
 					//updateKids(newTransactions);
 				}
+			} else {
+				signOut(auth)
 			}
 	});
 </script>
 
-<div class="bg-black p-4 pt-12 center col">
-	<div class="bg-yellow text-black rounded-full w-60 h-60 center col mt-8 mb-8">
+<div class="bg-black p-2 pt-12 center col">
+	<div class="{kid.checkingAccount.balance < 0 ? 'bg-pink' : 'bg-yellow'} text-black rounded-full w-60 h-60 center col mt-8 mb-8">
 		<h2 class="text-center mb-2 italic">checking account</h2>
 		{#if kid}
 			<h3 class="text-4xl text-center" in:fly={{ y: -42 }}>
@@ -45,8 +49,9 @@
 
 		<Pay {kid} />
 		<Transactions {kid} />
-		<div class="m-4 bg-pink border-green border-2 green-shaded rounded-xl p-8">
-			<h4 class="text-center italic mb-4">allowance</h4>
+		<Transfer {kid} />
+		<div class="bg-pink border-green border-2 green-shaded rounded-xl p-2 mt-4 pt-4 pb-4">
+			<h4 class="text-center italic p-2">allowance</h4>
 			<h3 class="text-center text-3xl">
 				$ {kid && kid.checkingAccount.allowance} per {kid && kid.checkingAccount.frequency}
 			</h3>
@@ -60,7 +65,7 @@
 				${(kid && kid.savingsAccount.balance.toFixed(2)) || 0.0}
 			</h3>
 		</div>
-		<div class="w-full center h-36 mt-8 bg-pink rounded-xl border-green border-2 green-shaded">
+		<div class="w-full center pt-4 pb-4 bg-pink rounded-xl border-green border-2 green-shaded">
 			<Logout />
 		</div>
 	</div>

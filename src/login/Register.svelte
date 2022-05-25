@@ -15,7 +15,6 @@ import Toast from '../Toast.svelte';
 		if (email && password) {
 			try {
 			let user = await createUserWithEmailAndPassword(auth, email, password);
-			console.log(user)
 			//fetchUser()
 		} catch (err) {
 			if (err.code == 'auth/email-already-in-use')
@@ -32,15 +31,15 @@ import Toast from '../Toast.svelte';
 
 </script>
 
-<div class="bg-yellow dark:bg-black dark:text-pink rounded-xl p-6 mb-8">
-	<Toast {message} {visible} />
-	<form on:submit|preventDefault={register} class="grid grid-col-2 grid-row-4 gap-4 w-full pl-3">
+<div class="bg-yellow rounded-xl p-2 mb-8">
+	<Toast bind:visible={visible} bind:message={message} />
+	<form on:submit|preventDefault={register} class="grid grid-row-5 grid-col-4 gap-4 w-full ">
 		<label on:submit={register} for="email" class="col-start-1 row-start-1 mb-4">E-mail</label>
 		<input
 			autocapitalize="false"
 			type="email"
 			name="email"
-			class="w-11/12 p-2 rounded-md outline-none col-start-2 row-start-1 bg-pink shaded big-shade clickable"
+			class="w-11/12 p-2 rounded-md outline-none col-start-2 row-start-1 bg-pink shaded big-shade clickable stretch"
 			id="email"
 			bind:value={email}
 		/>

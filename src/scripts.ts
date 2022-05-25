@@ -42,7 +42,6 @@ export function calcAllowance(kid: kidObj) {
   } else {
     //this is first allowance ever
   }
-  console.log(kid.checkingAccount.allowance)
   return kid.checkingAccount.transactions
 }
 
@@ -59,7 +58,6 @@ export function calcAllowanceOLD(
   if (last) {
     let previousAllowance = convertString2Date(last.date).valueOf()
     let incrementBy = howManyDaysIn(frequency) * 24 * 60 * 60 * 1000
-    console.log(previousAllowance, incrementBy)
     while (previousAllowance + incrementBy < new Date().valueOf()) {
       previousAllowance += incrementBy
       let transaction = {

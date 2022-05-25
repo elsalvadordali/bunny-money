@@ -37,8 +37,9 @@
 	}
 </script>
 
-<div class="bg-pink border-green border-2 rounded-xl p-4 m-4 green-shaded">
-	<Toast {visible} message={toast} />
+<div class="bg-pink border-green border-2 rounded-xl p-2 green-shaded">
+	<Toast bind:visible={visible} bind:message={toast} />
+
 	{#if kid}
 		<button
 			on:click={() => (showMore = !showMore)}
@@ -47,7 +48,7 @@
 		>
 		{#if showMore}
 			<div class="">
-				<h3 class="text-xl mb-8">request money</h3>
+				<h3 class="text-2xl mb-8">request money</h3>
 				<div class="grid grid-cols-3 grid-row-3 gap-4">
 					<input
 						id="add"
@@ -59,7 +60,7 @@
 						class="rounded-md bg-green p-2 outline-none text-center col-start-1 row-start-1 shaded big-shade w-56"
 					/>
 
-					<label for="add" class="text-center italic row-start-1 col-start-2 col-span-2 pt-2"
+					<label for="add" class="text-center italic row-start-1 col-start-2 col-end-4 pt-2"
 						>(to checking)</label
 					>
 					<label for="memo" class="col-start-1 row-start-2 text-center pt-2">Memo</label>

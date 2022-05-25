@@ -26,7 +26,7 @@
 
 {#if kid}
 	<div class="line-between mt-4">
-		<Toast {message} {visible} />
+		 {message} {visible} />
 		<input
 			type="number"
 			min="0"

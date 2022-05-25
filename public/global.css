@@ -147,9 +147,25 @@ table {
 div {
   box-sizing: border-box;
 }
+.cover {
+  height: 100vh;
+  width: 100vw;
+}
+.scroll-content {
+  overflow: scroll;
+}
+.text-right {
+  text-align: right;
+}
 .absolute {
-  position: absolute;
+  position: fixed;
   z-index: 50;
+}
+.absolute-center {
+  z-index: 50;
+  position: absolute;
+  top: 0%; /* position the top  edge of the element at the middle of the parent */
+  left: 0%; /* position the left edge of the element at the middle of the parent */
 }
 input[type='number']::-webkit-inner-spin-button,
 input[type='number']::-webkit-outer-spin-button {
@@ -201,6 +217,7 @@ input[type='number'] {
 }
 .border-b-2 {
   line-height: 2rem;
+  border-width: 0;
   border-bottom-width: 2px;
   border-style: solid;
 }
@@ -279,6 +296,9 @@ input[type='number'] {
 }
 .p-4 {
   padding: 1rem;
+}
+.pt-4 {
+  padding-top: 1rem;
 }
 .pb-4 {
   padding-bottom: 1rem;
@@ -363,6 +383,9 @@ h3 {
 .righth {
   align-self: flex-end;
 }
+.single-line {
+  line-break: strict;
+}
 .box-height {
   height: 2.5rem;
 }
@@ -412,6 +435,9 @@ h3 {
 .w-56 {
   width: 92%;
 }
+.w-78 {
+  width: 78%;
+}
 .w-88 {
   width: 88%;
 }
@@ -451,6 +477,9 @@ h3 {
 .underline {
   text-decoration: underline;
 }
+.items-center {
+  align-items: center;
+}
 .mb-0 {
   margin-bottom: 0;
 }
@@ -462,6 +491,12 @@ h3 {
 }
 .m-16 {
   margin: 4rem;
+}
+.mr-2 {
+  margin-right: 0.5rem;
+}
+.ml-2 {
+  margin-left: 0.5rem;
 }
 .m-3 {
   margin: 0.75rem;
@@ -518,6 +553,9 @@ h3 {
 }
 .col-start-3 {
   grid-column-start: 3;
+}
+.col-end-3 {
+  grid-column-end: 3;
 }
 .col-end-4 {
   grid-column-end: 4;

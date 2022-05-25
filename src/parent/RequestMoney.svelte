@@ -22,8 +22,6 @@
 			requestedAmount = 0;
 			return;
 		}
-		//verigy amount > 0 and not weird
-		//svelte-forms !!!!
 		if (kid) {
 			kid.pending.push({
 				date: convertDate2String(new Date()),
@@ -46,22 +44,27 @@
 				visible = true;
 				requestedAmount = 0;
 				memo = '';
+				showMore = false
 			}
 		}
 	}
 </script>
 
-<div class="w-full pt-4  mt-4">
-	<Toast {visible} message={toast} />
-
+<div class="w-full">
+	<Toast bind:visible={visible} bind:message={toast} />
+	{#if showMore}
 	<button
 		on:click={() => (showMore = !showMore)}
-		class="border-black border-2 bg-pink rounded-md p-2 pl-4 pr-4 mb-1 shaded"
-		>{showMore ? 'close' : 'Request payment'}</button
-	>
+		class='underline bg-yellow link'>
+		Close X
+	</button>
+	{:else}
+	<button class='underline bg-yellow link' on:click={() => showMore = !showMore}>Request payment</button>
+
+	{/if}
 	{#if showMore}
-		<div class="w-full bg-green border-black border-2 text-white rounded-xl shaded p-2 mt-4">
-			<h3 class="text-xl mt-4 mb-4">Request payment</h3>
+		<div class="w-full border-black border-2 rounded-xl shaded p-2 mb-4">
+			<h3 class="text-xl p-2">Request payment</h3>
 			<div class="grid grid-cols-3 grid-row-3 gap-4">
 				<input
 					id="add"
@@ -70,7 +73,7 @@
 					min="100000"
 					bind:value={requestedAmount}
 					placeholder="0"
-					class=" p-2 outline-none text-center col-start-1 row-start-1 bg-pink rounded-md shaded big-shade w-23 right"
+					class=" p-2 outline-none text-center col-start-1 row-start-1 bg-pink rounded-md shaded big-shade w-88 right"
 				/>
 
 				<label for="add" class="text-center italic row-start-1 col-start-2 col-end-4 pt-2"
@@ -80,16 +83,25 @@
 				<input
 					id="memo"
 					type="text"
+					maxlength="50"
 					bind:value={memo}
 					placeholder="for movie tickets"
-					class="p-2 outline-none row-start-2 col-start-2 col-end-4 bg-pink rounded-md shaded big-shade w-88"
+					class="p-2 outline-none row-start-2 col-start-2 col-end-4 bg-pink rounded-md shaded big-shade"
 				/>
 				<button
 					on:click={requestMoney}
-					class="bg-yellow border-pink shaded border-2 p-2 pl-6 pr-6 rounded-md col-start-3 row-start-3 mb-1 h-5"
+					class="bg-green border-black shaded border-2 p-2 pl-6 pr-6 rounded-md col-start-3 row-start-3 mb-1 h-5"
 					>request</button
 				>
 			</div>
 		</div>
 	{/if}
 </div>
+
+<style>
+	button.link {
+        margin-top: 0;
+        cursor: pointer;
+        display: block;
+    }
+</style>
