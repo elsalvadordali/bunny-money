@@ -46,7 +46,7 @@
 				</div>
 			{/each}
 			<div
-				class="bg-pink border-black border-2 shaded rounded-xl m-2 p-2 pt-8 pb-8 center">
+				class="bg-pink border-black border-2 shaded rounded-xl m-2 p-2 pt-8 pb-8 mb-4 mt-4 center">
 				<button
 					on:click={() => (newKidModal = !newKidModal)}
 					class="border-black border-2 rounded-md shaded mb-1 p-2 pl-6 pr-6 bg-yellow">

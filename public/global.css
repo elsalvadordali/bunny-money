@@ -189,7 +189,8 @@ input[type='number'] {
 .bg-pink {
   background-color: #c995a2;
 }
-.bg-green {
+.bg-green,
+body {
   background-color: #00a08f;
 }
 .bg-yellow {

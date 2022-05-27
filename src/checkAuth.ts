@@ -44,7 +44,7 @@ export async function getData(uid: string, name: string | null) {
     } //is kid but failed to fetch???
   } else if (parsedData) {
     // is parent, has data
-    parent.set({ uid, ...parsedData })
+    parent.set({ ...parsedData, uid })
   } else {
     //new user, create Data
     let user = {
@@ -65,9 +65,11 @@ export async function deleteKid(newArray: kidObj[], uid: string) {
 
 export async function updateParent(user) {
   if (user) {
-    const parRef = doc(db, 'parents', uid)
-    await updateDoc(parRef, { user })
+    const parRef = doc(db, 'parents', user.uid)
+    await updateDoc(parRef, user)
+    return true
   }
+  return false
 }
 export async function updateKid(kid: kidObj) {
   const parRef = doc(db, 'parents', kid.uid)
@@ -76,13 +78,11 @@ export async function updateKid(kid: kidObj) {
   let kids: kidObj[]
 
   if (parsed) {
-    console.log(1, parsed)
     let kidArr = parsed.kids.map(one => {
       if (one.kid == kid.kid) return kid
       else return one
     })
     parsed.kids = kidArr
-    console.log(2, kidArr)
     updateDoc(parRef, parsed)
     //parent.set(parsed)
   } else return 1

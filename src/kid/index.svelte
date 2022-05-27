@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { kidObj } from '../types';
-	import Pay from './Pay.svelte';
+	import Request from './Request.svelte';
 	import Pending from './Pending.svelte';
 	import Transactions from './Transactions.svelte';
 	import Transfer from './Transfer.svelte'
@@ -47,7 +47,7 @@
 	<div class="w-56">
 		<Pending {kid} />
 
-		<Pay {kid} />
+		<Request {kid} />
 		<Transactions {kid} />
 		<Transfer {kid} />
 		<div class="bg-pink border-green border-2 green-shaded rounded-xl p-2 mt-4 pt-4 pb-4">

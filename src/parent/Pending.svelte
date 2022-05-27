@@ -1,20 +1,28 @@
 <script lang="ts">
+import { parent } from '../stores';
+import { updateKid, updateParent } from '../checkAuth';
+import Toast from '../Toast.svelte';
+
 import type { transactionType, userType } from '../types'
     export let user: userType = null
 	let transactions = []
 
+	let visible = false
+	let message = ''
     function calcPending() {
-        
 		if (user) {
 		user.kids.forEach(kid => {
 			kid.pending.filter(transaction => {
+				console.log(transaction)
 				if (transaction.for && transaction.for == 'parent') {
-					let newOne = {kid: kid.name, ...transaction}
+					let newOne = {kid: kid.kid, name: kid.name, ...transaction}
 					transactions.push(newOne)
+					console.log('HEEEEEEEEEEE', newOne)
 					return newOne
 				}
 			})
 		})
+		console.log(transactions)
 	} else {
 	}
 		
@@ -23,38 +31,59 @@ import type { transactionType, userType } from '../types'
 		calcPending()
 	}
 	function accept(toMatch) {
+		console.log(toMatch)
 		let current: transactionType = null
-		let pending
-		user.kids.forEach(kid => {
-			kid.pending.filter(transaction => {
-				if (transaction.amount == toMatch.amount && transaction.memo == toMatch.amount) {
-					current = transaction
-				} else {
-					pending.push(transaction)
-				}
-			})
+		let kid = user.kids.find(one => one.kid == toMatch.kid)
+		let pending = kid.pending.filter(transaction => {
+			if (transaction.amount == toMatch.amount && transaction.date == toMatch.date) {
+				current = transaction
+			} else return transaction
 		})
-
-		/*
-		let pending = user[toMatch.kid].pending.filter(transaction => {
-			if (transaction.amount == toMatch.amount && transaction.memo == toMatch.amount) {
-			} else {
-				return transaction
-			}
-		})
-		*/
+		console.log(current, pending)
+		if (current) {
+		delete current.for
+		current.currentBalance = kid.checkingAccount.balance + current.amount
+		kid.checkingAccount.balance = current.currentBalance
+		kid.pending = pending
+		kid.checkingAccount.transactions = [current, ...kid.checkingAccount.transactions]
+		updateKid(kid)
+		parent.updateKid(kid)
+		transactions = pending
+		message = 'updated successfully'
+		visible = true
+		} else {
+			message = 'whoops something went wrong. reload and try again'
+			visible = true
+		}
 	}
 	function deny(transaction) {
+		let kid = user.kids.find(one => one.kid == transaction.kid)
+		if (kid) {
+			let pending = kid.pending.filter(one => one.memo != transaction.memo && one.amount != transaction.amount)
+			kid.pending = pending
+			user.kids = user.kids.filter(one => one.name == kid.name ? kid : one)
+			let updated = updateParent(user)
+			if (updated) {
+				message = 'request denied!'
+				transactions = pending
+				visible = true
+			}
+			parent.set(user)
+		} else {
+			message = 'reload the page and try again'
+			visible = true
+		}
 	}
 </script>
 <div>
+	<Toast bind:message={message} bind:visible={visible} />
 	{#if transactions && transactions.length > 0}
 	<div class="bg-yellow border-black border-2 shaded rounded-xl m-2 p-2">
 		<h2 class='text-2xl pb-4'>Requests</h2>
 		{#each transactions as transaction}
 		<div class="w-full flex justify-evenly">
 			<p class="p-2">{transaction.date}</p>
-			<p class='p-2'>from: {transaction.kid}</p>
+			<p class='p-2'>from: {transaction.name}</p>
 			<p class="p-2 inline m-2">{Number(transaction.amount).toFixed(2)}</p>
 
 		</div>

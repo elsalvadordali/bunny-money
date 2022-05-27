@@ -21,6 +21,7 @@ import { bind } from 'svelte/internal';
 
 	let kid: kidObj = {
 		name: '',
+		kid: user.kids ? user.kids[user.kids.length - 1].kid + 1 : 1, 
 		isParent: false,
 		uid: user.uid || '',
 		checkingAccount: {

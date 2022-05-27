@@ -18,21 +18,29 @@
 			visible = true;
 		}
 		if (kid) {
+			if (requestedAmount) {
 			//verigy amount > 0 and not weird
 			//svelte-forms !!!!
-			let amount = verifyAmount(requestedAmount.toString());
-			if (amount) {
-				kid.pending.push({
-					date: convertDate2String(new Date()),
-					amount,
-					memo,
-					for: 'parent'
-				});
-				updateKid(kid, kid.uid);
-				parent.set(kid);
-				toast = `Requested ${amount} successfully!`
+				let amount = verifyAmount(requestedAmount.toString());
+				if (amount) {
+					kid.pending.push({
+						date: convertDate2String(new Date()),
+						amount,
+						memo,
+						for: 'parent'
+					});
+					console.log(kid)
+					updateKid(kid);
+					//parent.set(kid);
+					toast = `Requested $${amount} successfully!`
+					visible = true
+				} 
+			} else {
+				toast = 'invalid request!'
 				visible = true
+				requestedAmount = 0
 			}
+
 		}
 	}
 </script>
