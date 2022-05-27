@@ -44,7 +44,7 @@ import { action_destroyer } from 'svelte/internal';
 			if (toApprove) {
 				let newTransaction: transactionType = {
 					...toApprove,
-					currentBalance: kid.checkingAccount.balance - toApprove.amount
+					currentBalance: kid.checkingAccount.balance + toApprove.amount
 				};
 				kid.checkingAccount.transactions = [newTransaction, ...kid.checkingAccount.transactions];
 				kid.checkingAccount.balance = newTransaction.currentBalance || kid.checkingAccount.balance;

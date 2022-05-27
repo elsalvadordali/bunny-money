@@ -26,13 +26,13 @@
 
 {#if kid}
 	<div class="line-between mt-4">
-		 {message} {visible} />
+		<Toast bind:message={message} bind:visible={visible} />
 		<input
 			type="number"
 			min="0"
 			bind:value={amount}
 			on:change={() => checkInput(amount || 0)}
-			class="w-13 outline-none text-center p-2 bg-black text-white rounded-md green-shaded big-green"
+			class="w-13 outline-none text-center p-2 bg-green rounded-md shaded big-shade"
 		/>
 		<p class="p-2"> per </p>
 		<select

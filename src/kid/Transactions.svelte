@@ -24,7 +24,9 @@
 							<p class="">{transaction.date}</p>
 						</div>
 						<div class="w-full flex justify-evenly">
-							<p class="inline m-2 {transaction.amount < 0 && 'text-pink'}">{Number(transaction.amount).toFixed(2)}</p>
+							<p class="inline m-2 {transaction.amount < 0 && 'text-pink'}">
+								{Number(transaction.amount).toFixed(2)}
+							</p>
 
 							<p class="inline m-2 {transaction.amount < 0 && 'text-pink'}">
 								{Number(transaction.currentBalance).toFixed(2)}

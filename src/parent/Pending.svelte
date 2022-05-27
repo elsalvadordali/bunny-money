@@ -48,7 +48,7 @@ import type { transactionType, userType } from '../types'
 	}
 </script>
 <div>
-	{#if transactions}
+	{#if transactions && transactions.length > 0}
 	<div class="bg-yellow border-black border-2 shaded rounded-xl m-2 p-2">
 		<h2 class='text-2xl pb-4'>Requests</h2>
 		{#each transactions as transaction}

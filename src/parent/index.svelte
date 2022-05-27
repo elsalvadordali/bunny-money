@@ -17,11 +17,11 @@
 	
 </script>
 
-<div class="bg-green">
+<div class="bg-green cover">
 	{#if newKidModal}
 		<CreateKid bind:value={newKidModal} />
 	{/if}
-	<div class='h-full p-2'>
+	<div class='p-2'>
 		<h3 class="m-6">
 			Welcome,
 			<p class="underline">
@@ -29,11 +29,11 @@
         </p>
 		</h3>
 		{#if user && user.kids.length == 0}
-			<div class="bg-pink border-black border-2 rounded-xl shaded p-2 pt-8 pb-8 center col shaded">
+			<div class="center col p-4 m-4">
 				<p class="m-4">No kids accounts set up yet.</p>
 				<button
 					on:click={() => (newKidModal = !newKidModal)}
-					class="border-black border-2 rounded-md p-2 pl-6 pr-6 mb-1 green-shaded bg-black text-white ">
+					class="bg-yellow rounded-md border-black border-2 shaded big-shade mb-1">
 					Create now
 				</button>
 			</div>
@@ -46,7 +46,7 @@
 				</div>
 			{/each}
 			<div
-				class="bg-pink border-black border-2 shaded rounded-xl m-2 p-2 mt-8 mb-8 pt-8 pb-8 center">
+				class="bg-pink border-black border-2 shaded rounded-xl m-2 p-2 pt-8 pb-8 center">
 				<button
 					on:click={() => (newKidModal = !newKidModal)}
 					class="border-black border-2 rounded-md shaded mb-1 p-2 pl-6 pr-6 bg-yellow">

@@ -260,6 +260,10 @@ input[type='number'] {
   display: flex;
   justify-content: space-evenly;
 }
+.justify-between {
+  display: flex;
+  justify-content: space-between;
+}
 .justify-end {
   display: flex;
   justify-content: flex-end;
@@ -380,7 +384,7 @@ h3 {
 .left {
   align-self: flex-start;
 }
-.righth {
+.right {
   align-self: flex-end;
 }
 .single-line {
@@ -390,6 +394,10 @@ h3 {
   height: 2.5rem;
 }
 .h-full {
+  min-height: 100%;
+}
+.h-100 {
+  min-height: 100vh;
   height: 100%;
 }
 .h-5 {

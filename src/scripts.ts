@@ -1,6 +1,12 @@
 import { Transaction } from 'firebase/firestore'
 import type { kidObj, transactionType } from './types'
 
+export function verifyAmountUNNECCESARP(str: string): number | false {
+  let arr = str.split('')
+  console.log(arr)
+  return 5
+}
+
 export function verifyAmount(str: string): number | false {
   let regex = /([0-9]+\.?[0-9]{0,2})/
   let res = str.match(regex)

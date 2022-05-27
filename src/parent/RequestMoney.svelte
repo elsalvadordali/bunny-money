@@ -25,7 +25,7 @@
 		if (kid) {
 			kid.pending.push({
 				date: convertDate2String(new Date()),
-				amount: requestedAmount,
+				amount: requestedAmount * -1,
 				memo
 			});
 			if (user) {

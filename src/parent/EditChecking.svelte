@@ -20,10 +20,11 @@
     export let kid: kidObj
     export let openChecking = false
 
+    let amount = 0
     let seePreviousTransactions = false
 </script>
 {#if openChecking && kid}
-<div class="absolute col w-full h-full bg-black75 top-0 left-0">
+<div class="absolute center w-full h-full bg-black75 top-0 left-0">
     <div class="center w-full h-full pt-6">
         <div 
         use:clickOutside
@@ -59,7 +60,7 @@
                             <p class="">{transaction.date}</p>
                         </div>
                         <div class="w-full flex justify-evenly">
-                            <p class="inline m-2 {transaction.amount < 0 && 'text-pink'}">{Number(transaction.amount).toFixed(2)}</p>
+                            <p class="inline bold m-2 {transaction.amount < 0 && 'text-pink'}">{Number(transaction.amount).toFixed(2)}</p>
 
                             <p class="inline m-2 {transaction.amount < 0 && 'text-pink'}">
                                 {Number(transaction.currentBalance).toFixed(2)}
@@ -73,7 +74,10 @@
                 </div>
             </div>
             {:else if seePreviousTransactions && kid.checkingAccount.transactions.length == 0 }
-            <div>No transactions... yet</div>
+            <button on:click={() => seePreviousTransactions = false} class='underline bg-yellow link'>Close X</button>
+            <div class="p-2 border-black border-2 rounded-xl">
+                <p>No transactions... yet</p>
+            </div>
             {:else}
             <button on:click={() => seePreviousTransactions = true} class='underline bg-yellow link'>See previous transactions</button>
 

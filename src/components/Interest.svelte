@@ -1,39 +1,26 @@
 <script lang="ts">
-	import type { kidObj, savingsType } from '../types';
-	import { verifyAmount } from '../scripts';
+	import type { kidObj } from '../types';
 	import Toast from '../Toast.svelte';
 	export let kid: kidObj = null;
+	export let amount = kid?.savingsAccount.interest || 0;
 	const options = ['day', 'week', 'month', 'year'];
-	import { updateKid } from '../checkAuth'
-	import { parent } from '../stores'
 
-	let amount = kid?.savingsAccount.interest || 0;
+	console.log(kid.savingsAccount)
+	
 	let message = '';
 	let visible = false;
-	$: calculated = kid ? kid.savingsAccount.balance * (kid.savingsAccount.interest / 100) : 0;
-
-	function updateInterest() {
-		let amt = verifyAmount(amount.toString())
-		console.log(amt)
-		if (amt < 100) {
-			kid.savingsAccount.interest = amount
-			console.log(kid)
-			updateKid(kid, kid.uid)
-			parent.updateKid(kid)
-			message = 'Interest updated successfully'
-			visible = true
-		} else {
-			message = 'Please put a valid number (between .01 and 100)'
-			visible = true
-		}
-	}
+	$: calculated = amount * (kid.savingsAccount.balance / 100);
+$: console.log(calculated)
+	
 </script>
+
+<Toast bind:message={message} bind:visible={visible} />
 
 {#if kid}
 <div class="line-between mt-4 mb-4" >
-	<Toast bind:message={message} bind:visible={visible} />
+	
 		<input
-		id='int'
+			id='int'
 			type="number"
 			min=0.01
 			max=100
@@ -53,10 +40,12 @@
 	</div>
 
 	<p class="text-center">
-		(that's {calculated ? calculated.toFixed(2) : 'no interest'} per {kid.savingsAccount.compounded})
+		(that's {calculated ? calculated.toFixed(2) : 'no interest'} per {kid.savingsAccount.compounded} 
+		{kid.savingsAccount.compounded == 'day' ? `, or ~${parseFloat(calculated * 365).toFixed(2)} per year` : ''}
+		{kid.savingsAccount.compounded == 'week' ? `, or ~${parseFloat(calculated * 52).toFixed(2)} per year` : ''}
+		{kid.savingsAccount.compounded == 'month' ? `, or ~${parseFloat(calculated * 12).toFixed(2)} per year` : ''}
+		)
 	</p>
-	<button class="bg-green rounded-md border-black border-2 shaded mb-1 big-shade" on:click={() => updateInterest()}>Save</button>
-
 {/if}
 
 <style>

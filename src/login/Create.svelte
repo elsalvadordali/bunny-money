@@ -47,6 +47,7 @@ import { bind } from 'svelte/internal';
 			message = 'Name is too short!';
 			visible = true;
 			kid.name = '';
+			kid.kid = user.kids.length + 1;
 			return;
 		}
 		if (kid) {
@@ -56,10 +57,10 @@ import { bind } from 'svelte/internal';
 			kid.savingsAccount.interest = verifyAmount(kid.savingsAccount.interest.toString()) || 0;
 
 			if (user && user.uid) {
+				user.kids.push(kid)
 				const parRef = doc(db, 'parents', user.uid);
-
-				await updateDoc(parRef, { kids: arrayUnion(kid) });
-				parent.addKid(kid);
+				await updateDoc(parRef, user);
+				parent.set(user)
 				value = false;
 			}
 		}
@@ -81,40 +82,40 @@ import { bind } from 'svelte/internal';
 </script>
 
 {#if kid}
-<div class="absolute center col w-full h-full bg-black75 ">
+<div class="absolute center col w-full h-full bg-black75 scroll-content p-4 p-8">
 	<Toast bind:visible={visible} bind:message={message} />
-		<div class='bg-pink rounded-xl p-4'>
+		<div class='bg-yellow rounded-xl p-2 mt-6'>
 			<div class="m-4 p-4 mt-8 m-8 center justify-end">
 				<button class="text-black border-black bg-pink border-2 rounded-md p-2 pl-4 pr-4 mb-1 shaded" on:click={() => (value = false)}>Close X</button>
 			</div>
-			<div class='w-56 line m-4 border-black border-2 shaded bg-green rounded-xl'>
-				<label for='name' class='m-4 w-13'>Kid's name</label>
-				<input type='text' class='bg-yellow w-23 rounded-md shaded middle big-shade m-4' bind:value={kid.name} />
+			<div class='line border-black border-2 shaded rounded-xl mb-4'>
+				<label for='name' class='p-2 w-13'>Kid's name</label>
+				<input type='text' class='bg-green w-23 rounded-md shaded middle big-shade m-4' bind:value={kid.name} />
 			</div>
-			<div class="w-56 m-4 bg-yellow border-black border-2 shaded rounded-xl">
-				<h2 class="text-3xl p-4">Checking Account</h2>
-				<div class='line mt-4 mb-4'>
-					<label for='initialChecking' class="w-13 m-4">Initial Amount</label>
-					<input type='number' class="bg-green w-23 m-4 rounded-md shaded big-shade" bind:value={kid.checkingAccount.balance} />
+			<div class="border-black border-2 shaded rounded-xl mb-4">
+				<h2 class="text-3xl p-2">Checking Account</h2>
+				<div class='line p-2 justify-between'>
+					<label for='initialChecking' class="w-13 ">Initial Amount</label>
+					<input type='number' class="bg-green w-50 rounded-md shaded big-shade" bind:value={kid.checkingAccount.balance} />
 				</div>
-				<div class="m-4 mb-0">
+				<div class="p-2">
 					<h3 class="text-xl">set up allowance (optional)</h3>
 					<Allowance {kid} />
 				</div>
 			</div>
-			<div class="w-56 m-4 bg-green border-black border-2 shaded rounded-xl">
+			<div class="border-black border-2 shaded rounded-xl mb-4">
 				<h2 class="text-3xl p-4">Savings Account</h2>
 				<div class='line mb-4 mt-4'>
 					<label for='initialChecking' class="w-13 m-4">Initial Amount</label>
 					<input type='number' class="bg-pink w-23 m-4 rounded-md shaded big-shade" bind:value={kid.savingsAccount.balance} />
 				</div>
 				<h3 class="text-xl p-4">set up interest (optional)</h3>
-				<div class="m-4 mb-0">
+				<div class="p-2 mb-0">
 					<Interest {kid} />
 				</div>
 			</div>
-			<div class="m-4 center justify-end">
-				<button class="text-black rounded-md bg-yellow border-black border-2 shaded big-shade" on:click={createKid}>Create new Account</button>
+			<div class="center justify-end">
+				<button class="text-black rounded-md bg-yellow border-black border-2 mb-1 shaded big-shade" on:click={createKid}>Create new Account</button>
 			</div>
 		</div>
 </div>

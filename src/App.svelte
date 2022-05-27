@@ -24,7 +24,7 @@
 	console.log('is there user??', user, res, doneLoading)
 </script>
      
-<div class="bg-green">
+<div class="bg-green h-100">
 {#if user}
 	{#if user.uid && user.isParent == false}
 		<Kid />
