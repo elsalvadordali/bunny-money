@@ -34,7 +34,9 @@
 	});
 </script>
 
-<div class="bg-black p-2 pt-12 center col">
+<div class="bg-pink p-2 pt-12 center col">
+	<h2 class="m-4 inline text-2xl">Hello <span class="italic inline text-2xl">{kid && kid.name}!</span></h2>
+
 	<div class="{kid.checkingAccount.balance < 0 ? 'bg-pink' : 'bg-yellow'} text-black rounded-full w-60 h-60 center col mt-8 mb-8">
 		<h2 class="text-center mb-2 italic">checking account</h2>
 		{#if kid}
@@ -43,29 +45,30 @@
 			</h3>
 		{/if}
 	</div>
-	<h2 class="m-4 inline text-xl text-white">Hello <span class="italic inline text-xl">{kid && kid.name}!</span></h2>
-	<div class="w-56">
+	<div class="bg-green rounded-xl w-100 mb-4 mt-4 pb-4 pt-4">
+		<h4 class="text-center italic p-2">allowance</h4>
+		<h3 class="text-center text-3xl">
+			$ {kid && kid.checkingAccount.allowance} per {kid && kid.checkingAccount.frequency}
+		</h3>
+	</div>
+	<div class="w-100 mb-4">
 		<Pending {kid} />
 
 		<Request {kid} />
-		<Transactions {kid} />
-		<Transfer {kid} />
-		<div class="bg-pink border-green border-2 green-shaded rounded-xl p-2 mt-4 pt-4 pb-4">
-			<h4 class="text-center italic p-2">allowance</h4>
-			<h3 class="text-center text-3xl">
-				$ {kid && kid.checkingAccount.allowance} per {kid && kid.checkingAccount.frequency}
-			</h3>
-		</div>
+		<Transactions accountType='checking' transactions={kid.checkingAccount.transactions} />
+		<Transfer bind:kid={kid} />
+		
 		<div class="center col">
 		<div
-			class="bg-green text-black rounded-full w-60 h-60 center col m-auto mt-8 mb-8"
+			class="bg-green rounded-full w-60 h-60 center col m-auto mt-8 mb-8"
 		>
 			<h2 class="mb-2 italic">savings account</h2>
 			<h3 class="text-4xl text-center ">
 				${(kid && kid.savingsAccount.balance.toFixed(2)) || 0.0}
 			</h3>
 		</div>
-		<div class="w-full center pt-4 pb-4 bg-pink rounded-xl border-green border-2 green-shaded">
+		<Transactions accountType='savings' transactions={kid.savingsAccount.transactions} />
+		<div class="w-full center pt-4 pb-4 bg-pink rounded-xl border-black border-2 shaded mt-4">
 			<Logout />
 		</div>
 	</div>

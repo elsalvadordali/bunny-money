@@ -4,7 +4,6 @@
 	import Toast from '../Toast.svelte';
 	import { parent } from '../stores';
 	import { updateKid } from '../checkAuth';
-import { action_destroyer } from 'svelte/internal';
 
 	export let kid: kidObj;
 
@@ -20,7 +19,7 @@ import { action_destroyer } from 'svelte/internal';
 	});
 
 	function acceptTransaction(i: number) {
-		message = `Pay $${kid?.pending[i].amount} ${kid && kid.pending[i].memo}?`;
+		message = `Pay $${Math.abs(kid?.pending[i].amount)} ${kid && kid.pending[i].memo}?`;
 		boxOpen = true;
 		currentIndex = i;
 		//BUT THE BOXES MOVE GODDAMN IT
@@ -32,7 +31,7 @@ import { action_destroyer } from 'svelte/internal';
 			let res = kid.pending.filter((obj, index) => index != i);
 			toast = 'request denied successfully';
 			parent.set({ ...kid, pending: res });
-			updateKid({...kid, pending: res}, kid.uid);
+			updateKid({...kid, pending: res});
 			visible = true;
 		} //no kid so error
 	}
@@ -50,7 +49,7 @@ import { action_destroyer } from 'svelte/internal';
 				kid.checkingAccount.balance = newTransaction.currentBalance || kid.checkingAccount.balance;
 				toast = 'payment sent!';
 				let obj: kidObj = {...kid, pending: res}
-				updateKid(obj, kid.uid);
+				updateKid(obj);
 				visible = true;
 				parent.set(obj);
 				parent.subscribe(val => kid = val)
@@ -75,24 +74,24 @@ import { action_destroyer } from 'svelte/internal';
 	<Confirm bind:boxOpen {message} bind:isConfirmed />
 	
 	{#if kid.pending && kid.pending.length > 0}
-		<div class="bg-yellow text-black rounded-xl p-2 mb-4 border-pink border-2 pink-shade">
-			<h2 class="text-2xl italic m-2">Pending transactions</h2>
+		<div class="bg-green rounded-xl p-2 mb-4">
+			<h2 class="text-xl m-2">Pending requests</h2>
 			{#each kid.pending as action, i (i)}
 				{#if action.for != 'parent'}
 				<div class="border-black border-b-2 grid grid-col-2 grid-row-3 pt-4 pb-4">
-					<p class="row-start-1 col-start-1 mb-2">$ {action.amount.toFixed(2)}</p>
+					<p class="row-start-1 col-start-1 mb-2 bold">$ {Math.abs(action.amount).toFixed(2)}</p>
 
 					<p class="row-start-1 col-start-2 mb-2">{action.date}</p>
 					<p class="row-start-2 col-start-1 col-end-3 mb-2 italic">{action.memo}</p>
 					<button
 						on:click={() => acceptTransaction(i)}
-						class="bg-green text-black p-2 pr-4 pl-4 mr-2 rounded-md row-start-3 col-start-1 border-black border-2 mb-1 shaded"
+						class="bg-yellow p-2 pr-4 pl-4 mr-2 rounded-md row-start-3 col-start-1 border-black border-2 mb-1 shaded"
 					>
 						Accept
 					</button>
 					<button
 						on:click={() => deleteTransaction(i)}
-						class="bg-pink text-black p-2 pr-4 pl-4 ml-2 rounded-md row-start-3 col-start-2 border-black border-2 mb-1 shaded"
+						class="bg-pink p-2 pr-4 pl-4 ml-2 rounded-md row-start-3 col-start-2 border-black border-2 mb-1 shaded"
 					>
 						Deny
 					</button>

@@ -293,9 +293,11 @@ body {
 .pb-2 {
   padding-bottom: 0.25rem;
 }
+
 .pl-3 {
   padding-left: 0.75rem;
 }
+
 .p-3 {
   padding: 0.75rem;
 }
@@ -304,6 +306,12 @@ body {
 }
 .pt-4 {
   padding-top: 1rem;
+}
+.pl-4 {
+  padding-left: 1rem;
+}
+.pr-4 {
+  padding-right: 1rem;
 }
 .pb-4 {
   padding-bottom: 1rem;
@@ -553,6 +561,9 @@ h3 {
 .grid-col-3 {
   grid-template-columns: repeat(3, 1fr);
 }
+.grid-col-5 {
+  grid-template-columns: repeat(5, 1fr);
+}
 
 .col-start-2 {
   grid-column-start: 2;
@@ -563,11 +574,23 @@ h3 {
 .col-start-3 {
   grid-column-start: 3;
 }
+.col-start-4 {
+  grid-column-start: 4;
+}
+.col-start-5 {
+  grid-column-start: 5;
+}
 .col-end-3 {
   grid-column-end: 3;
 }
 .col-end-4 {
   grid-column-end: 4;
+}
+.col-end-5 {
+  grid-column-end: 5;
+}
+.col-end-6 {
+  grid-column-end: 6;
 }
 .col-end-7 {
   grid-column-end: 7;
@@ -620,4 +643,9 @@ button:active {
 }
 .clickable {
   cursor: pointer;
+}
+button.link {
+  margin-top: 0;
+  cursor: pointer;
+  display: block;
 }
