@@ -4,7 +4,6 @@
 	export let transactions: transactionType[] = null;
 	export let accountType = null;
 	let openBox = false;
-	console.log(transactions)
 </script>
 
 	{#if transactions}

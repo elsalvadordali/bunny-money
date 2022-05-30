@@ -4,13 +4,10 @@
 	export let kid: kidObj = null;
 	export let amount = kid?.savingsAccount.interest || 0;
 	const options = ['day', 'week', 'month', 'year'];
-
-	console.log(kid.savingsAccount)
 	
 	let message = '';
 	let visible = false;
 	$: calculated = amount * (kid.savingsAccount.balance / 100);
-$: console.log(calculated)
 	
 </script>
 

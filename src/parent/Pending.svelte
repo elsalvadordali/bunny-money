@@ -13,16 +13,13 @@ import type { transactionType, userType } from '../types'
 		if (user) {
 		user.kids.forEach(kid => {
 			kid.pending.filter(transaction => {
-				console.log(transaction)
 				if (transaction.for && transaction.for == 'parent') {
 					let newOne = {kid: kid.kid, name: kid.name, ...transaction}
 					transactions.push(newOne)
-					console.log('HEEEEEEEEEEE', newOne)
 					return newOne
 				}
 			})
 		})
-		console.log(transactions)
 	} else {
 	}
 		
@@ -31,7 +28,6 @@ import type { transactionType, userType } from '../types'
 		calcPending()
 	}
 	function accept(toMatch) {
-		console.log(toMatch)
 		let current: transactionType = null
 		let kid = user.kids.find(one => one.kid == toMatch.kid)
 		let pending = kid.pending.filter(transaction => {
@@ -39,7 +35,6 @@ import type { transactionType, userType } from '../types'
 				current = transaction
 			} else return transaction
 		})
-		console.log(current, pending)
 		if (current) {
 		delete current.for
 		current.currentBalance = kid.checkingAccount.balance + current.amount

@@ -20,17 +20,18 @@
 
 	const loginOO = async() => {
 	}
-
-	const login = async (e) => {
-
+	/**
+	 * 
+	 * Takes the user input, checks if isParent, authenticates. If kid, checks if kid exists in firestore
+	 */
+	const login = async () => {
 		if (isParent) {
-			
 			await signInWithEmailAndPassword(auth, email, password)
 			.then(async (value) => {
 				const parRef = doc(db, 'parents', value.user.uid)
 				let userData = await getDoc(parRef)
 				if (userData) {
-					let gottedData = userData.data()
+					let gottedData: userType = userData.data()
 					parent.set({...gottedData})
 				}
 			})
@@ -43,10 +44,8 @@
 					visible = true
 				}
 			})
-			
 		} else {
-			if (name) localStorage.setItem('name', name);
-			
+			if (name) localStorage.setItem('name', name)
 			await signInWithEmailAndPassword(auth, email, password)
 			.then(async (value) => {
 				const parRef = doc(db, 'parents', value.user.uid)
@@ -75,59 +74,12 @@
 		}
 	}
 
-	const loginOOO = async (e) => {
-		e.preventDefault()
-		if (name) localStorage.setItem('name', name);
-
-		await signInWithEmailAndPassword(auth, email, password)
-			.then(async (value) => {
-				const parRef = doc(db, 'parents', value.user.uid);
-				let data = await getDoc(parRef);
-				let parsedData = data.data();
-				if (name) {
-					if(parsedData && parsedData.kids.length > 0) {
-					kid = parsedData.kids.find((arrKid: kidObj) => {
-						if (arrKid && arrKid.name.toLowerCase() == name.toLowerCase()) {
-							return arrKid;
-						}
-					});
-					if (kid) {
-						parent.set(kid);
-						parent.subscribe((val) => (user = val));
-					} else {
-						auth.signOut()
-						localStorage.clear()
-						message = 'No such kid found';
-						visible = true;
-						name = '';
-						boxOpen = true;
-					}
-
-					} else {
-						message = 'No such kid';
-						visible = true;
-						
-					}
-					
-				} 
-			})
-			.catch((err) => {
-				if (err.code === 'auth/user-not-found') {
-					message = 'Account not found. Is it a typo?'
-					visible = true
-				} else {
-					message = 'as unspecified error occured'
-					visible = true
-				}
-			});
-	};
-
+	
 
 </script>
 
 <Confirm bind:boxOpen {message} />
 <div class="bg-yellow rounded-r-xl rounded-b-xl p-2 mb-8">
-	{isParent}
 	<form on:submit|preventDefault={login} class="grid grid-row-5 grid-col-4 gap-4 w-full stretch">
 		{#if isParent}
 		<label class="border-black border-b-2 italic selected clickable col-start-1 row-start-1"

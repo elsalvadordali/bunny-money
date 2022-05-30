@@ -26,7 +26,6 @@
 	}
 
 	function deleteTransaction(i: number) {
-		console.log(i)
 		if (kid) {
 			let res = kid.pending.filter((obj, index) => index != i);
 			toast = 'request denied successfully';
@@ -39,7 +38,6 @@
 		if (kid) {
 			let toApprove: transactionType | undefined = kid.pending.find((kiddo, i) => i == currentIndex);
 			let res = kid.pending.filter((kiddo, i) => i != currentIndex);
-			console.log(res, toApprove)
 			if (toApprove) {
 				let newTransaction: transactionType = {
 					...toApprove,
@@ -55,7 +53,6 @@
 				parent.subscribe(val => kid = val)
 				obj = null
 				toApprove = undefined
-				console.log('updated??', kid, obj, kid == obj, toApprove)
 				isConfirmed = false
 			} else {
 				toast = 'Something went wrong. Refresh and try again';

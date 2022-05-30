@@ -1,5 +1,8 @@
 
 <script lang="ts">
+	/**
+ * @prettier
+ */
 	import type { kidObj, userType } from './types';
 	import Kid from './kid/index.svelte'
 	import Parent from './parent/index.svelte'
@@ -12,7 +15,7 @@
 	let message = ''
 	let visible = false
 
-	let user: userType | kidObj = null;
+	let user: userType | kidObj | null = null
 	parent.subscribe((val) => (user = val));
 	let doneLoading = false;
 	let res = fetchUser()
@@ -21,7 +24,6 @@
 			doneLoading = true;
 		}
 	});
-	console.log('is there user??', user, res, doneLoading)
 </script>
      
 <div class="bg-green h-100">

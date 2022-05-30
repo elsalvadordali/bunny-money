@@ -29,7 +29,6 @@
 						memo,
 						for: 'parent'
 					});
-					console.log(kid)
 					updateKid(kid);
 					//parent.set(kid);
 					toast = `Requested $${amount} successfully!`

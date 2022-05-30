@@ -1,12 +1,16 @@
-import { Transaction } from 'firebase/firestore'
+import { updateKid } from './checkAuth';
 import type { kidObj, transactionType } from './types'
+import { parent } from './stores'
 
-export function verifyAmountUNNECCESARP(str: string): number | false {
-  let arr = str.split('')
-  console.log(arr)
-  return 5
+export function onlyNumbers(e: Event, onlyPositives: boolean) {
+  const userValue = e.target.value
+  let newValue = userValue? parseFloat(userValue): 0;
+  console.log(newValue)
 }
-
+/** 
+*
+*Hello
+**/
 export function verifyAmount(str: string): number | false {
   let regex = /([0-9]+\.?[0-9]{0,2})/
   let res = str.match(regex)
@@ -23,11 +27,14 @@ export function convertDate2String(date: Date): string {
 function convertString2Date(str: string): Date {
   return new Date(str)
 }
+
 export function calcAllowance(kid: kidObj) {
   let last = kid.checkingAccount.transactions.find(transaction => {
     if (transaction.memo == 'allowance') return transaction
   })
+  console.log('last is ', last)
   if (last) {
+    console.log('last is', last)
     let previousAllowance = convertString2Date(last.date).valueOf()
     let incrementBy =
       howManyDaysIn(kid.checkingAccount.frequency) * 24 * 60 * 60 * 1000
@@ -46,7 +53,20 @@ export function calcAllowance(kid: kidObj) {
       ]
     }
   } else {
+    console.log('kid is ', kid.checkingAccount.balance)
     //this is first allowance ever
+    kid.checkingAccount.balance += kid.checkingAccount.allowance
+
+    let newTransaction: transactionType = {
+      amount: kid.checkingAccount.allowance,
+      currentBalance: kid.checkingAccount.balance,
+      date: convertDate2String(new Date()),
+      memo: 'allowance',
+    }
+    console.log(newTransaction)
+    kid.checkingAccount.transactions = [newTransaction, ...kid.checkingAccount.transactions]
+    updateKid(kid)
+    parent.updateKid(kid)
   }
   return kid.checkingAccount.transactions
 }
