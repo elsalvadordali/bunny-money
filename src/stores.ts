@@ -14,7 +14,7 @@ function createParent() {
     },
     updateKid: (kid: kidObj) => {
       update((user: userType) => {
-        if (user) {
+\        if (user && user.isParent) {
           let kids =
             user &&
             user.kids.map((arrKid: kidObj) => {
@@ -22,6 +22,8 @@ function createParent() {
               else return arrKid
             })
           return { ...user, kids }
+        } else if (user && !user.isParent) {
+          return kid
         }
         return null
       })
