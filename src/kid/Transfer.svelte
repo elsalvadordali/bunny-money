@@ -61,7 +61,6 @@ import Toast from "../Toast.svelte";
     <div class='border-black border-2 rounded-xl p-2'>
         <h2 class='text-xl mb-4'>Transfer money</h2>
         <div class="grid grid-col-3 grid-row-3 gap-4">
-            {amount}
             <p class='col-start-1 row-start-1'>from: {checking2savings ? 'checking' : 'savings'}</p>
             <button class='col-start-2 row-start-1 border-black border-2 rounded-md bg-yellow inline p-2 pl-6 pr-6 shaded big-shade mb-1 right' on:click={() => checking2savings = !checking2savings}>&#8646;</button>
             <p class="col-start-3 row-start-1">to: {checking2savings ? 'savings' : 'checking'}</p>

@@ -15,5 +15,5 @@
 </script>
 
 <Toast bind:visible={visible} bind:message={message} />
-<button on:click={() => logout()} class="rounded-md p-2 pl-6 pr-6 border-black border-2 bg-pink mb-1 shaded big-shade">Log out</button>
+<button on:click={() => logout()} class="rounded-md p-2 pl-6 pr-6 bg-pink mb-1 shaded big-shade">Log out</button>
 

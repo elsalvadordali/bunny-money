@@ -7,9 +7,8 @@
 	import Logout from '../login/Logout.svelte';
 	import { parent } from '../stores';
 	import { onMount } from 'svelte';
-	import { calcAllowance } from '../scripts';
+	import { calcAllowance, calcInterest } from '../scripts';
 	import { fly } from 'svelte/transition';
-	import { flip } from 'svelte/animate'
 	import { signOut } from 'firebase/auth';
 	import { auth } from '../checkAuth'
 
@@ -21,20 +20,14 @@
 	});
 	onMount(() => {
 			if (kid) {
-				let newTransactions = calcAllowance(kid);
-				if (kid.checkingAccount.transactions.length != newTransactions.length) {
-					kid.checkingAccount.transactions = newTransactions;
-					while (kid.checkingAccount.balance < newTransactions[0].amount) {
-						kid.checkingAccount.balance += 0.01;
-					}
-					//updateKids(newTransactions);
-				}
+				calcAllowance(kid);
+				calcInterest(kid)
 			} else {
 				signOut(auth)
 			}
 	});
 	let checking = 0.00
-	
+	let savings = 0.00
 	const getMoney = setInterval(() => {
 		if (kid.checkingAccount.balance > 1000 && checking < kid.checkingAccount.balance) checking += 1.38 
 		else if (kid.checkingAccount.balance > 100 && checking < kid.checkingAccount.balance) checking += .65
@@ -44,7 +37,15 @@
 			clearInterval(getMoney)
 		}
 	}, 1)
-	
+	const getSavings = setInterval(() => {
+		if (kid.savingsAccount.balance > 1000 && savings < kid.savingsAccount.balance) savings += 1.38 
+		else if (kid.savingsAccount.balance > 100 && savings < kid.savingsAccount.balance) savings += .65
+		else if (checking < kid.savingsAccount.balance) savings += .28
+		else {
+			checking = kid.savingsAccount.balance
+			clearInterval(getSavings)
+		}
+	})
 </script>
 <div class="w-full bg-black center col pt-4 pb-4">
 	<div class="bg-pink p-2 pt-12 center col w-360 rounded-xl">
@@ -76,7 +77,7 @@
 			>
 				<h2 class="mb-2 italic">savings account</h2>
 				<h3 class="text-4xl text-center ">
-					${(kid && kid.savingsAccount.balance.toFixed(2)) || 0.0}
+					${savings.toFixed(2) || 0.0}
 				</h3>
 			</div>
 			<Transactions accountType='savings' transactions={kid.savingsAccount.transactions} />
