@@ -7,7 +7,7 @@
 </script>
 
 	{#if transactions}
-	<div class="bg-green rounded-xl p-2 mt-4 w-100">
+	<div class="bg-green rounded-xl p-2 mt-4 w-full">
 		<button on:click={() => openBox = !openBox} class="link underline bg-green">
 			{openBox ? 'close x' : `see ${accountType} transactions`}
 		</button>
@@ -39,7 +39,7 @@
 				</div>
 			</div>
 			{:else}
-			<div class="w-full pb-8 pt-4 w-100">
+			<div class="w-full pb-8 pt-4 w-full">
 				
 				<p>no transactions</p>
 			</div>

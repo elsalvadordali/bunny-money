@@ -18,8 +18,6 @@
 	let user: userType = null;
 	let kid: kidObj | null | 0 = null;
 
-	const loginOO = async() => {
-	}
 	/**
 	 * 
 	 * Takes the user input, checks if isParent, authenticates. If kid, checks if kid exists in firestore
@@ -79,7 +77,7 @@
 </script>
 
 <Confirm bind:boxOpen {message} />
-<div class="bg-yellow rounded-r-xl rounded-b-xl p-2 mb-8">
+<div class="bg-yellow rounded-r-xl rounded-b-xl p-2 mb-8 w-360">
 	<form on:submit|preventDefault={login} class="grid grid-row-5 grid-col-4 gap-4 w-full stretch">
 		{#if isParent}
 		<label class="border-black border-b-2 italic selected clickable col-start-1 row-start-1"

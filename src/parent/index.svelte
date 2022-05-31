@@ -17,7 +17,7 @@
 	
 </script>
 
-<div class="bg-green cover">
+<div class="bg-green cover w-360">
 	{#if newKidModal}
 		<CreateKid bind:value={newKidModal} />
 	{/if}

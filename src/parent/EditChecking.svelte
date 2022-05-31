@@ -24,15 +24,15 @@
     let seePreviousTransactions = false
 </script>
 {#if openChecking && kid}
-<div class="absolute center w-full h-full bg-black75 top-0 left-0">
-    <div class="center w-full h-full pt-6">
+<div class="absolute center w-full h-full bg-black75 top-0 left-0 ">
+    <div class="center w-full h-full pt-6 w-360">
         <div 
         use:clickOutside
         on:click_outside={() => (openChecking = false)}
         class="bg-yellow border-black border-2 p-2 rounded-xl shaded w-full m-4">
         <div class="w-full flex flex-row justify-end">
             <button
-            class='underline bg-yellow link'
+                class='underline bg-yellow link'
                 on:click={() => (openChecking = false)}>Close X</button>
         </div>
             <h3 class="text-2xl text-center">Current balance: ${kid.checkingAccount.balance.toFixed(2)}</h3>

@@ -71,7 +71,12 @@ export async function updateParent(user) {
   }
   return false
 }
-export async function updateKid(kid: kidObj) {
+/**
+ * 
+ * @param kid 
+ * sends updated kid object to firebase, and returns a Promise of 1 if error, 0 if good
+ */
+export async function updateKid(kid: kidObj): Promise<Number> {
   const parRef = doc(db, 'parents', kid.uid)
   let data = await getDoc(parRef)
   let parsed = data.data()
@@ -85,31 +90,6 @@ export async function updateKid(kid: kidObj) {
     parsed.kids = kidArr
     updateDoc(parRef, parsed)
     //parent.set(parsed)
-  } else return 1
-  return 0
-}
-export async function updateKidBAD(
-  kid: kidObj,
-  uid: string,
-  message: string = 'Success'
-) {
-  const parRef = doc(db, 'parents', uid)
-  let kids: kidObj[] = []
-  if (!kids) {
-    let data = await getDoc(parRef)
-    let parsedData = data.data()
-    if (parsedData) {
-      kids = parsedData.kids.map((arrKid: kidObj) => {
-        if (arrKid && kid && arrKid.name == kid.name) return kid
-        else return arrKid
-      })
-    }
-  } else {
-    kids = kids.map((arrKid: kidObj) => {
-      if (arrKid && kid && arrKid.name == kid.name) return kid
-      else return arrKid
-    })
-  }
-  await updateDoc(parRef, { kids })
-  return message
+  } else return Promise.resolve(1)
+  return Promise.resolve(0)
 }

@@ -26,7 +26,6 @@
 	});
 </script>
      
-<div class="bg-green h-100">
 {#if user}
 	{#if user.uid && user.isParent == false}
 		<Kid />
@@ -39,4 +38,3 @@
 {:else}
 <Splash />
 {/if}
-</div>

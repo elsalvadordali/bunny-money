@@ -6,7 +6,7 @@
 </script>
 
 <div class="center col bg-green">
-	<div class="w-full bg-pink center">
+	<div class="w-100 bg-pink center">
 		<div
 			class="rounded-full m-8 bg-black w-60 h-60 center col text-white"
 		>
@@ -41,7 +41,7 @@
 		</div>
 	{/if}
 
-	<div class="p-4">
+	<div class="p-4 w-360">
 		<h1 class="text-3xl m-4">The banking* app for kids</h1>
 
 		<h3 class="text-2xl m-4">What is it?</h3>

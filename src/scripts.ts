@@ -32,19 +32,16 @@ export function calcAllowance(kid: kidObj) {
   let last = kid.checkingAccount.transactions.find(transaction => {
     if (transaction.memo == 'allowance') return transaction
   })
-  console.log('last is ', last)
   if (last) {
-    console.log('last is', last)
     let previousAllowance = convertString2Date(last.date).valueOf()
-    let incrementBy =
-      howManyDaysIn(kid.checkingAccount.frequency) * 24 * 60 * 60 * 1000
+    let incrementBy = howManyDaysIn(kid.checkingAccount.frequency) * 24 * 60 * 60 * 1000
     while (previousAllowance + incrementBy < new Date().valueOf()) {
       previousAllowance += incrementBy
+      kid.checkingAccount.balance += kid.checkingAccount.allowance
       let transaction: transactionType = {
         amount: kid.checkingAccount.allowance,
-        currentBalance:
-          kid.checkingAccount.allowance + kid.checkingAccount.balance,
-        date: convertDate2String(new Date()),
+        currentBalance: kid.checkingAccount.balance,
+        date: convertDate2String(new Date(previousAllowance)),
         memo: 'allowance',
       }
       kid.checkingAccount.transactions = [
@@ -53,7 +50,6 @@ export function calcAllowance(kid: kidObj) {
       ]
     }
   } else {
-    console.log('kid is ', kid.checkingAccount.balance)
     //this is first allowance ever
     kid.checkingAccount.balance += kid.checkingAccount.allowance
 
@@ -71,42 +67,43 @@ export function calcAllowance(kid: kidObj) {
   return kid.checkingAccount.transactions
 }
 
-export function calcAllowanceOLD(
-  transactions: transactionType[],
-  frequency: string,
-  amount: number,
-  currentBalance: number
-) {
-  let last = transactions.find(transaction => {
-    if (transaction.memo == 'allowance') return transaction
+export function calcInterest(kid: kidObj) {
+  let last = kid.savingsAccount.transactions.find(transaction => {
+    if (transaction.memo == 'interest') return transaction
   })
-  let allowances: transactionType[] = []
   if (last) {
-    let previousAllowance = convertString2Date(last.date).valueOf()
-    let incrementBy = howManyDaysIn(frequency) * 24 * 60 * 60 * 1000
-    while (previousAllowance + incrementBy < new Date().valueOf()) {
+    let previous = convertString2Date(last.date).valueOf()
+    let incrementBy = howManyDaysIn(kid.savingsAccount.compounded) * 24 * 60 * 60 * 1000
+    if (previous + incrementBy < new Date().valueOf()) {
+    while (previous + incrementBy < new Date().valueOf()) {
       previousAllowance += incrementBy
-      let transaction = {
-        amount,
-        currentBalance: 0,
+      kid.savingsAccount.balance += kid.savingsAccount.balance * (kid.savingsAccount.interest / 100)    
+      let newTransaction: transactionType = {
+        amount: kid.savingsAccount.interest,
+        currentBalance: kid.savingsAccount.balance,
         date: convertDate2String(new Date()),
-        memo: 'allowance',
+        memo: 'interest'
       }
-      allowances = [transaction, ...allowances]
+      kid.savingsAccount.transactions = [newTransaction, ...kid.savingsAccount.transactions]
+      }
+    updateKid(kid)
+    parent.updateKid(kid)
     }
-    transactions = [...allowances, ...transactions]
   } else {
-    //THIS IS FIRST ALLOWANCE!! just give one time today
-    let transaction: transactionType = {
-      amount,
-      currentBalance: currentBalance + amount,
+    kid.savingsAccount.balance += kid.savingsAccount.balance * (kid.savingsAccount.interest / 100)
+    let newTransaction: transactionType = {
+      amount: kid.savingsAccount.interest,
+      currentBalance: kid.savingsAccount.balance,
       date: convertDate2String(new Date()),
-      memo: 'allowance',
+      memo: 'interest'
     }
-    transactions = [transaction, ...transactions]
+    kid.savingsAccount.transactions = [newTransaction, ...kid.savingsAccount.transactions]
+    updateKid(kid)
+    parent.updateKid(kid)
+
   }
-  return transactions
 }
+
 
 function calcDaysBetween(today: number, previous: number) {
   let a = today / 1000 / 60 / 60 / 24

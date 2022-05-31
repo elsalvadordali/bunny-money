@@ -66,7 +66,7 @@ import { claim_space } from "svelte/internal";
         class="bg-yellow border-black border-2 p-2 rounded-xl shaded w-full m-4">
         <div class="w-full flex flex-row justify-end">
             <button
-                class="border-black bg-pink border-2 rounded-md shaded p-2 pl-4 pr-4 mb-1"
+                class="underline bg-yellow link"
                 on:click={() => (openSavings = false)}>Close X</button>
         </div>
     
@@ -80,7 +80,7 @@ import { claim_space } from "svelte/internal";
             <button class="bg-green rounded-md border-black border-2 shaded mb-1 big-shade" on:click={updateInterest}>adjust</button>
         </div>
         {:else }
-        <button on:click={() => openInterest = true} class='link underline bg-yellow'>See Current Balance</button>
+        <button on:click={() => openInterest = true} class='link underline bg-yellow'>Adjust Interest</button>
         {/if}
             {#if seePreviousTransactions && kid.savingsAccount.transactions.length > 0}
             <div>

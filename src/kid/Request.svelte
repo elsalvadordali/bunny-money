@@ -44,7 +44,7 @@
 	}
 </script>
 
-<div class="bg-green rounded-xl p-2">
+<div class="bg-green rounded-xl p-2 w-360">
 	<Toast bind:visible={visible} bind:message={toast} />
 
 	{#if kid}

@@ -112,6 +112,12 @@ body {
   line-height: 1;
   font-family: 'Fira Sans', sans-serif;
   font-weight: 400;
+  display: flex;
+  flex-flow: column no-repeat;
+  justify-content: center;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
 }
 button,
 select,
@@ -459,7 +465,10 @@ h3 {
   width: 88%;
 }
 .w-100 {
-  width: 100%;
+  width: 100vw;
+}
+.w-360 {
+  max-width: 360px;
 }
 .middle {
   vertical-align: middle;

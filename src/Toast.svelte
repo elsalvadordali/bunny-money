@@ -11,7 +11,6 @@
 			}, 5000);
 		}
 	}
-	
 </script>
 
 {#if visible}
@@ -19,7 +18,7 @@
 		class="sticky m-4 p-6 rounded-xl m-2 bg-pink center border-black border-2 shaded"
 		transition:fly={{ x: -300, duration: 700 }}>
 		<p class="m-4">{message}</p>
-		<button on:click={() => (visible = false)} class="text-blackbg-yellow rounded-md pl-6 pr-6 mb-1 border-black shaded">X</button>
+		<button on:click={() => (visible = false)} class="text-black bg-yellow rounded-md pl-6 pr-6 mb-1 border-black border-2 shaded big-shade">X</button>
 	</div>
 {/if}
 
