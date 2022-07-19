@@ -467,7 +467,11 @@ h3 {
   width: 100vw;
 }
 .w-360 {
+<<<<<<< HEAD
   max-width: 95%;
+=======
+  max-width: 360px;
+>>>>>>> 02b80c079c080971d0d23096f75b55f4aa27e401
 }
 .middle {
   vertical-align: middle;

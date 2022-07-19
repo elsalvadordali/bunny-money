@@ -2,7 +2,6 @@ import { updateKid } from './checkAuth';
 import type { kidObj, transactionType } from './types'
 import { parent } from './stores'
 
-
 export function verifyAmount(str: string): number | false {
   let regex = /([0-9]+\.?[0-9]{0,2})/
   let res = str.match(regex)
