@@ -125,9 +125,7 @@
 {/if}
 
 <style>
-    select {
-        -webkit-appearance: none;
-    }
+    
     .small {
         max-height: 30vh;
     }

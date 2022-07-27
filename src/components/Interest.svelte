@@ -46,6 +46,9 @@
 {/if}
 
 <style>
+	select {
+        -webkit-appearance: none;
+    }
 	#int::after {
 		content: '%';
 		position: relative;

@@ -45,7 +45,7 @@
 				kid.checkingAccount.transactions = [newTransaction, ...kid.checkingAccount.transactions];
 				kid.checkingAccount.balance = kid.checkingAccount.balance + amount;
 				if (user) {
-					updateKid(kid, user.uid, user.kids)
+					updateKid(kid)
 					let kids = reconcileArr(user.kids, kid)
 					parent.updateKids(kids)
 					message = 'sent money successfully'

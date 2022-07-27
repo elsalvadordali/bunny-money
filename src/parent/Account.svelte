@@ -54,12 +54,12 @@
 		<div class="w-full grid grid-rows-1 grid-col-2 gap-4">
 			<div class="w-full center col p-4 pt-12 pb-8 pr-6 border-black border-r-2">
 				<h3 class="text-2xl">${kid.checkingAccount.balance.toFixed(2)}</h3>
-				<h6>{kid.checkingAccount.type}</h6>
+				<h6>Checking Account</h6>
 				<button on:click={() => openChecking = true} class="border-black border-2 rounded-md mb-1 bg-yellow shaded">Edit</button>
 			</div>
 			<div class="w-full center col p-4 pt-12 pb-8">
 				<h3 class="text-2xl">${kid.savingsAccount.balance.toFixed(2)}</h3>
-				<h6>{kid.savingsAccount.type}</h6>
+				<h6>Savings Account</h6>
 				<button on:click={() => openSavings = true} class="border-black border-2 rounded-md mb-1 bg-green shaded">Edit</button>
 
 			</div>
