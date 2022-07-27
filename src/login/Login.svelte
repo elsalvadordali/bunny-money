@@ -23,6 +23,8 @@
 	 * Takes the user input, checks if isParent, authenticates. If kid, checks if kid exists in firestore
 	 */
 	const login = async () => {
+		message = 'Logging in...'
+					visible = true
 		if (isParent) {
 			await signInWithEmailAndPassword(auth, email, password)
 			.then(async (value) => {
@@ -38,7 +40,7 @@
 					message = 'Account not found. Is it a typo?'
 					visible = true
 				} else {
-					message = 'as unspecified error occured'
+					message = 'Something went wrong. Please try again.'
 					visible = true
 				}
 			})

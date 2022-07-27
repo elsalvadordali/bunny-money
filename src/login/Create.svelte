@@ -84,10 +84,13 @@
 
 <Toast bind:visible={visible} bind:message={message} />
 
-<div class="bg-black75 w-full absolute center scroll-content">
-    <div class="bg-yellow col border-black border-2 p-2 rounded-xl shaded m-4 w-360">
+<div class="absolute center w-full h-full bg-black75 top-0 left-0">
+	<div 
+	use:clickOutside
+	on:click_outside={() => (openChecking = false)}
+	class="bg-yellow border-black border-2 p-2 rounded-xl shaded w-full m-4">
 		<div class="m-4 p-4 mt-8 m-8 center justify-end w-full">
-			<button class="text-black border-black bg-pink border-2 rounded-md p-2 pl-4 pr-4 mb-1 shaded" on:click={() => (value = false)}>Close X</button>
+			<button class="bg-pink rounded-md border-black border-2 shaded mb-1 big-shade text-4xl flex center px-2" on:click={() => (value = false)}>×</button>
 		</div>
 		<div class='line border-black border-2 shaded rounded-xl mb-4 w-full'>
 			<label for='name' class='p-2 w-13'>Kid's name</label>

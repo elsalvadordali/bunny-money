@@ -2,10 +2,8 @@
     import Interest from "../components/Interest.svelte";
     import type { kidObj } from "../types";
     import { verifyAmount } from '../scripts'
-    import { parent } from '../stores'
     import { updateKid, updateParent } from '../checkAuth'
     import Toast from "../Toast.svelte";
-import { claim_space } from "svelte/internal";
     export let kid: kidObj
     export let openSavings = false
     let seePreviousTransactions = false
@@ -57,7 +55,7 @@ import { claim_space } from "svelte/internal";
 
 {#if openSavings && kid}
 <Toast bind:message={message} bind:visible={visible} />
-<div class=" center w-full h-full bg-black75 top-0 left-0">
+<div class="absolute center w-full h-full bg-black75 top-0 left-0 ">
     <div class="center w-full h-full pt-6">
         
         <div 
@@ -66,13 +64,13 @@ import { claim_space } from "svelte/internal";
         class="bg-yellow border-black border-2 p-2 rounded-xl shaded w-full m-4">
         <div class="w-full flex flex-row justify-end">
             <button
-                class="underline bg-yellow link"
-                on:click={() => (openSavings = false)}>Close X</button>
+                class="bg-pink rounded-md border-black border-2 shaded mb-1 big-shade text-4xl flex center px-2"
+                on:click={() => (openSavings = false)}>×</button>
         </div>
     
         {#if openInterest}            
-        <button on:click={() => openInterest = false} class='link underline bg-yellow'>Close X</button>
-        <div class="border-black border-2 p-2 rounded-xl mt-4">
+        <button on:click={() => openInterest = false} class='link text-4xl bg-yellow'>×</button>
+        <div class="border-black border-2 p-2 rounded-xl mt-2">
 
             <h3 class="text-2xl text-center">Current balance: ${kid.savingsAccount.balance.toFixed(2)}</h3>
             <h4>Adjust Interest</h4>
@@ -86,9 +84,9 @@ import { claim_space } from "svelte/internal";
             <div>
                 <button
                 class="border-black bg-pink border-2 rounded-md shaded p-2 pl-4 pr-4 mb-1"
-                on:click={() => (seePreviousTransactions = false)}>Close X</button>
+                on:click={() => (seePreviousTransactions = false)}>×</button>
 
-                <div class="w-full flex justify-evenly border-black border-b-2 mt-4">
+                <div class="w-full flex justify-evenly border-black border-b-2 mt-2">
                     <p class="inline m-2 bold">Amount</p>
                     <p class="inline m-2 bold">Balance</p>
                 </div>
@@ -113,9 +111,9 @@ import { claim_space } from "svelte/internal";
             </div>
             {:else if seePreviousTransactions && kid.savingsAccount.transactions.length == 0}
             <button
-                class="underline bg-yellow link"
-                on:click={() => (seePreviousTransactions = false)}>Close X</button>
-                <div class='p-2 border-black border-2 rounded-xl'>
+                class="bg-yellow link text-4xl"
+                on:click={() => (seePreviousTransactions = false)}>×</button>
+                <div class='p-2 border-black border-2 rounded-xl mt-2'>
                     <p class="p-4">No Transactions... yet</p>
                 </div>
             {:else}
@@ -127,6 +125,9 @@ import { claim_space } from "svelte/internal";
 {/if}
 
 <style>
+    select {
+        -webkit-appearance: none;
+    }
     .small {
         max-height: 30vh;
     }

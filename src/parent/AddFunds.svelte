@@ -73,8 +73,8 @@
 
 	<button
 		on:click={() => (showMore = !showMore)}
-		class="underline bg-yellow link">
-		{showMore ? 'Close X' : 'Add funds'}
+		class={ showMore ? 'link text-4xl bg-yellow' :'underline bg-yellow link'}>
+		{showMore ? '×' : 'Add funds'}
 	</button>
 	{#if showMore}
 	<div class="w-full border-black border-2 rounded-xl shaded p-2 mb-4">

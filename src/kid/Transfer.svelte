@@ -56,7 +56,8 @@ import Toast from "../Toast.svelte";
     <Toast bind:message={message} bind:visible={visible} />
     <button
 		on:click={() => openBox = !openBox}
-		class="link underline bg-green">{openBox ? 'close x' : 'transfer money'}</button>
+		class={ openBox ? 'link text-4xl bg-yellow' : 'link underline bg-green'}>
+        {openBox ? '×' : 'transfer money'}</button>
     {#if openBox}
     <div class='border-black border-2 rounded-xl p-2'>
         <h2 class='text-xl mb-4'>Transfer money</h2>

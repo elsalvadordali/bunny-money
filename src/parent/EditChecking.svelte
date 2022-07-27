@@ -32,8 +32,8 @@
         class="bg-yellow border-black border-2 p-2 rounded-xl shaded w-full m-4">
         <div class="w-full flex flex-row justify-end">
             <button
-                class='underline bg-yellow link'
-                on:click={() => (openChecking = false)}>Close X</button>
+                class='bg-pink rounded-md border-black border-2 shaded mb-1 big-shade text-4xl flex center px-2'
+                on:click={() => (openChecking = false)}>×</button>
         </div>
             <h3 class="text-2xl text-center">Current balance: ${kid.checkingAccount.balance.toFixed(2)}</h3>
 
@@ -43,8 +43,8 @@
             {#if seePreviousTransactions && kid.checkingAccount.transactions.length > 0}
             <div>
                 <button
-                class="underline bg-yellow link"
-                on:click={() => (seePreviousTransactions = false)}>Close X</button>
+                class="link text-4xl bg-yellow"
+                on:click={() => (seePreviousTransactions = false)}>×</button>
                 <div class="border-black border-2 rounded-xl shaded p-2">
                     <div class="w-full flex justify-evenly border-black border-b-2">
                         <p class="inline m-2 bold">Amount</p>
@@ -74,7 +74,7 @@
                 </div>
             </div>
             {:else if seePreviousTransactions && kid.checkingAccount.transactions.length == 0 }
-            <button on:click={() => seePreviousTransactions = false} class='underline bg-yellow link'>Close X</button>
+            <button on:click={() => seePreviousTransactions = false} class='link text-4xl bg-yellow'>×</button>
             <div class="p-2 border-black border-2 rounded-xl">
                 <p>No transactions... yet</p>
             </div>

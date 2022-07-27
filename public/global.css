@@ -289,6 +289,9 @@ body {
 .pr-0 {
   padding-right: 0;
 }
+.px-2 {
+  padding: .325rem .5rem;
+}
 .p-2 {
   padding: 0.5rem;
 }
@@ -361,6 +364,7 @@ body {
 .italic {
   font-style: italic;
 }
+
 .text-xl {
   font-size: 1.25rem;
   line-height: 1.35rem;
@@ -467,13 +471,6 @@ h3 {
   width: 100vw;
 }
 .w-360 {
-<<<<<<< HEAD
-  max-width: 95%;
-=======
-  max-width: 360px;
->>>>>>> 02b80c079c080971d0d23096f75b55f4aa27e401
-}
-.middle {
   vertical-align: middle;
 }
 .strech-all {
@@ -532,6 +529,9 @@ h3 {
 }
 .m-4 {
   margin: 1rem;
+}
+.mt-2 {
+  margin-top: .5rem;
 }
 .mt-4 {
   margin-top: 1rem;

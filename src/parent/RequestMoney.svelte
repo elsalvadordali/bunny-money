@@ -55,8 +55,8 @@
 	{#if showMore}
 	<button
 		on:click={() => (showMore = !showMore)}
-		class='underline bg-yellow link'>
-		Close X
+		class='link text-4xl bg-yellow'>
+		×
 	</button>
 	{:else}
 	<button class='underline bg-yellow link' on:click={() => showMore = !showMore}>Request payment</button>

@@ -50,8 +50,8 @@
 	{#if kid}
 		<button
 			on:click={() => (showMore = !showMore)}
-			class="link underline bg-green"
-			>{showMore ? 'close x' : 'request money'}</button
+			class={ showMore ? 'link text-4xl bg-yellow' : 'link underline bg-green'}
+			>{showMore ? '×' : 'request money'}</button
 		>
 		{#if showMore}
 			<div class="border-black border-2 rounded-xl p-2">

@@ -7,9 +7,9 @@
 </script>
 
 	{#if transactions}
-	<div class="bg-green rounded-xl p-2 mt-4 w-full">
+	<div class={ openBox ? 'link text-4xl bg-yellow' : 'bg-green rounded-xl p-2 mt-4 w-full'}>
 		<button on:click={() => openBox = !openBox} class="link underline bg-green">
-			{openBox ? 'close x' : `see ${accountType} transactions`}
+			{openBox ? '×' : `see ${accountType} transactions`}
 		</button>
 		{#if openBox}
 			{#if transactions && transactions.length > 0}
