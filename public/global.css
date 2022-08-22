@@ -441,13 +441,13 @@ h3 {
   height: 14rem;
 }
 .h-60 {
-  height: 200px;
+  height: 30vw;
 }
 .w-90 {
   width: 90%;
 }
 .w-60 {
-  width: 200px;
+  width: 30vw;
 }
 .w-56 {
   width: 83.333333%;
@@ -694,9 +694,9 @@ button.link {
   display: block;
 }
 
-.gag {
-  display: inline;
-  vertical-align: middle;
+.circle h3 {
+  font-size: 8vw;
+  line-height: 11vw;
 }
 @media screen and (min-width: 800px) {
   .w-360 {

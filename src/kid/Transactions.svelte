@@ -7,7 +7,7 @@
 </script>
 
 	{#if transactions}
-	<div class='bg-green rounded-xl mb-4 mt-4 p-2'>
+	<div class='bg-green w-full rounded-xl mb-4 mt-4 p-2'>
 		<button 
 			on:click={() => openBox = !openBox} 
 			class={ openBox ? 'link text-4xl lh-1 bg-green' : 'link underline bg-green'}>

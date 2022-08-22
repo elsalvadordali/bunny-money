@@ -54,7 +54,7 @@
 <div class="w-full bg-black center col pt-4 pb-4">
 	<div class="bg-pink p-2 pt-12 center col w-full rounded-xl">
 		<h2 class="m-4 inline text-2xl">Hello <span class="italic inline text-2xl">{kid && kid.name}!</span></h2>
-		<div class="{checking < 0 ? 'bg-pink' : 'bg-yellow'} text-black rounded-full w-60 h-60 center col mt-8 mb-8">
+		<div class="bg-yellow text-black rounded-full w-60 h-60 center col mt-8 mb-8 circle">
 			<h2 class="text-center mb-2 italic">checking account</h2>
 			{#if checking}
 				<h3 class="text-4xl lh-4 text-center" in:fly="{{y: -50}}">
@@ -77,7 +77,7 @@
 			
 			<div class="center col">
 			<div
-				class="bg-green rounded-full w-60 h-60 center col m-auto mt-8 mb-8"
+				class="bg-green rounded-full w-60 h-60 center col m-auto mt-8 mb-8 circle"
 			>
 				<h2 class="mb-2 italic">savings account</h2>
 				<h3 class="text-4xl lh-4 text-center ">

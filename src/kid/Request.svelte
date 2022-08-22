@@ -50,7 +50,7 @@
 	{#if kid}
 		<button
 			on:click={() => (showMore = !showMore)}
-			class={ showMore ? 'link text-4xl pt-0 bg-yellow lh-1' : 'link underline text-4xl bg-yellow'}
+			class={ showMore ? 'link text-4xl pt-0 bg-green lh-1' : 'link underline bg-green'}
 			>{showMore ? '×' : 'request money'}</button
 		>
 		{#if showMore}
