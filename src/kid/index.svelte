@@ -29,8 +29,8 @@
 	let checking = 0.00
 	let savings = 0.00
 	const getMoney = setInterval(() => {
-		if (kid.checkingAccount.balance > 1000 && checking < kid.checkingAccount.balance) checking += 1.38 
-		else if (kid.checkingAccount.balance > 100 && checking < kid.checkingAccount.balance) checking += .65
+		if (kid.checkingAccount.balance > 1000 && checking < kid.checkingAccount.balance) checking += 667.38 
+		else if (kid.checkingAccount.balance > 100 && checking < kid.checkingAccount.balance) checking += 50.65
 		else if (checking < kid.checkingAccount.balance) checking += .28
 		else {
 			checking = kid.checkingAccount.balance
@@ -38,22 +38,26 @@
 		}
 	}, 1)
 	const getSavings = setInterval(() => {
-		if (kid.savingsAccount.balance > 1000 && savings < kid.savingsAccount.balance) savings += 1.38 
-		else if (kid.savingsAccount.balance > 100 && savings < kid.savingsAccount.balance) savings += .65
-		else if (checking < kid.savingsAccount.balance) savings += .28
+		console.log('hello')
+		if (savings === kid.savingsAccount.balance) clearInterval(getSavings)
+		else if (savings > kid.savingsAccount.balance) savings = kid.savingsAccount.balance
+		else if (kid.savingsAccount.balance > 10000) savings += 1015.65
+		else if (kid.savingsAccount.balance > 1000 ) savings += 167.38 
+		else if (kid.savingsAccount.balance > 100) savings += 74.65
+		else if (savings < kid.savingsAccount.balance) savings += 1.28
 		else {
 			checking = kid.savingsAccount.balance
 			clearInterval(getSavings)
 		}
-	})
+	}, 100)
 </script>
 <div class="w-full bg-black center col pt-4 pb-4">
-	<div class="bg-pink p-2 pt-12 center col w-360 rounded-xl">
+	<div class="bg-pink p-2 pt-12 center col w-full rounded-xl">
 		<h2 class="m-4 inline text-2xl">Hello <span class="italic inline text-2xl">{kid && kid.name}!</span></h2>
 		<div class="{checking < 0 ? 'bg-pink' : 'bg-yellow'} text-black rounded-full w-60 h-60 center col mt-8 mb-8">
 			<h2 class="text-center mb-2 italic">checking account</h2>
 			{#if checking}
-				<h3 class="text-4xl text-center" in:fly="{{y: -50}}">
+				<h3 class="text-4xl lh-4 text-center" in:fly="{{y: -50}}">
 					${checking.toFixed(2)}
 				</h3>
 			{/if}
@@ -76,7 +80,7 @@
 				class="bg-green rounded-full w-60 h-60 center col m-auto mt-8 mb-8"
 			>
 				<h2 class="mb-2 italic">savings account</h2>
-				<h3 class="text-4xl text-center ">
+				<h3 class="text-4xl lh-4 text-center ">
 					${savings.toFixed(2) || 0.0}
 				</h3>
 			</div>

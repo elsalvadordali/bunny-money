@@ -4,7 +4,7 @@
 	import Allowance from '../components/Allowance.svelte';
 	import Interest from '../components/Interest.svelte';
 	import { db } from '../checkAuth';
-	import { arrayUnion, doc, updateDoc } from 'firebase/firestore';
+	import { doc, updateDoc } from 'firebase/firestore';
 	import { parent } from '../stores';
 	import { verifyAmount } from '../scripts';
 
@@ -23,14 +23,12 @@
 		isParent: false,
 		uid: user.uid || '',
 		checkingAccount: {
-			type: 'checking',
 			balance: 0,
 			allowance: 0,
 			frequency: 'week',
 			transactions: []
 		},
 		savingsAccount: {
-			type: 'savings',
 			balance: 0,
 			interest: 0,
 			compounded: 'week',
@@ -80,10 +78,9 @@
 	}
 </script>
 
-{#if kid}
-
 <Toast bind:visible={visible} bind:message={message} />
 
+{#if kid}
 <div class="absolute center w-full h-full bg-black75 top-0 left-0">
 	<div 
 	use:clickOutside

@@ -50,20 +50,20 @@
 	}
 </script>
 
-<div class="w-full">
+<div class="">
 	<Toast bind:visible={visible} bind:message={toast} />
 	{#if showMore}
 	<button
 		on:click={() => (showMore = !showMore)}
-		class='link text-4xl bg-yellow'>
-		×
+		class={ showMore ? 'link text-4xl pt-0 bg-green lh-1' : 'link underline bg-green'}>
+		{showMore ? '×' : 'request money'}
 	</button>
 	{:else}
-	<button class='underline bg-yellow link' on:click={() => showMore = !showMore}>Request payment</button>
+	<button class='link underline bg-green' on:click={() => showMore = !showMore}>Request payment</button>
 
 	{/if}
 	{#if showMore}
-		<div class="w-full border-black border-2 rounded-xl shaded p-2 mb-4">
+		<div class="border-black border-2 rounded-xl shaded p-2 mb-4">
 			<h3 class="text-xl p-2">Request payment</h3>
 			<div class="grid grid-cols-3 grid-row-3 gap-4">
 				<input

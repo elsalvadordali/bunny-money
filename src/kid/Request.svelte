@@ -44,13 +44,13 @@
 	}
 </script>
 
-<div class="bg-green rounded-xl p-2 w-360">
+<div class="bg-green rounded-xl p-2 ">
 	<Toast bind:visible={visible} bind:message={toast} />
 
 	{#if kid}
 		<button
 			on:click={() => (showMore = !showMore)}
-			class={ showMore ? 'link text-4xl bg-yellow' : 'link underline bg-green'}
+			class={ showMore ? 'link text-4xl pt-0 bg-yellow lh-1' : 'link underline text-4xl bg-yellow'}
 			>{showMore ? '×' : 'request money'}</button
 		>
 		{#if showMore}

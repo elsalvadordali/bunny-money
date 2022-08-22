@@ -38,14 +38,15 @@
 
 	<p class="text-center">
 		(that's {calculated ? calculated.toFixed(2) : 'no interest'} per {kid.savingsAccount.compounded} 
-		{kid.savingsAccount.compounded == 'day' ? `, or ~${parseFloat(calculated * 365).toFixed(2)} per year` : ''}
-		{kid.savingsAccount.compounded == 'week' ? `, or ~${parseFloat(calculated * 52).toFixed(2)} per year` : ''}
-		{kid.savingsAccount.compounded == 'month' ? `, or ~${parseFloat(calculated * 12).toFixed(2)} per year` : ''}
+		{kid.savingsAccount.compounded == 'day' ? `, or ~${(calculated * 365).toFixed(2)} per year` : ''}
+		{kid.savingsAccount.compounded == 'week' ? `, or ~${(calculated * 52).toFixed(2)} per year` : ''}
+		{kid.savingsAccount.compounded == 'month' ? `, or ~${(calculated * 12).toFixed(2)} per year` : ''}
 		)
 	</p>
 {/if}
 
 <style>
+	* {-webkit-appearance: none;}
 	select {
         -webkit-appearance: none;
     }

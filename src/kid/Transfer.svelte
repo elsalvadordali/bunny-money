@@ -12,9 +12,7 @@ import Toast from "../Toast.svelte";
 
     // User inputs '1' -- userInput: '1', parsedUserInput: 1, userInputParseError: false
     // userInput: 'abc' -- userInput: 'abc', parsedUserInput: 1, userInputParseError: true
-      // User attempts to submit -- is there an error? If so, then block submit, give user feedback
-
-
+    // User attempts to submit -- is there an error? If so, then block submit, give user feedback
 
     let openBox = true
     let checking2savings = true
@@ -49,14 +47,13 @@ import Toast from "../Toast.svelte";
             visible = true
         }
     }
-
 </script>
 
 <div class="bg-green rounded-xl mb-4 mt-4 p-2">
     <Toast bind:message={message} bind:visible={visible} />
     <button
 		on:click={() => openBox = !openBox}
-		class={ openBox ? 'link text-4xl bg-yellow' : 'link underline bg-green'}>
+		class={ openBox ? 'link text-4xl pt-0 bg-green lh-1' : 'link underline bg-green'}>
         {openBox ? '×' : 'transfer money'}</button>
     {#if openBox}
     <div class='border-black border-2 rounded-xl p-2'>

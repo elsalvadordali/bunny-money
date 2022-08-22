@@ -46,44 +46,52 @@ import Toast from '../Toast.svelte';
 	};
 
 </script>
-
-<div class="bg-yellow rounded-xl p-2 mb-8 w-360">
 	<Toast bind:visible={visible} bind:message={message} />
-	<form on:submit|preventDefault={register} class="grid grid-row-6 grid-col-5 gap-4 w-full mt-4 mb-4">
-		<label on:submit={register} for="email" class="col-start-1 row-start-1 mb-4">E-mail</label>
+<div class='center col w-full'>
+<div class="bg-yellow rounded-lt-xl rounded-b-xl p-2 mb-8 w-90">
+	<form on:submit|preventDefault={register} class="grid grid-row-6 grid-col-3 gap-4  stretch">
+		<label for="email" class=" inline-block col-start-1 row-start-2">E-mail</label>
 		<input
-			autocapitalize="false"
 			type="email"
+			autocapitalize="off"
+			class="p-2 rounded-md col-start-2 col-end-4 h-12 row-start-2 bg-pink shaded big-shade stretch"
 			name="email"
-			class="w-11/12 p-2 rounded-md outline-none col-start-2 row-start-1 bg-pink shaded big-shade clickable stretch"
 			id="email"
 			bind:value={email}
+			required
 		/>
-		<label for="password" class="row-start-2 col-start-1">Password</label>
+		<label for="password" class="inline-block col-start-1 row-start-3">Password</label>
 		<input
 			type="password"
+			autocapitalize="off"
+			minlength="6"
+			maxlength="32"
+			class="p-2 rounded-md col-start-2 col-end-4 row-start-3 bg-pink shaded big-shade stretch"
 			name="password"
-			class="w-11/12 p-2 rounded-md outline-none row-start-2 col-start-2 shaded big-shade {password == confirmPassword ? 'bg-green' : 'bg-pink'}"
 			id="password"
 			bind:value={password}
+			required
 		/>
-		<label for="confirmPassword" class="row-start-3 col-start-1">Confirm Password</label>
+		<label for='confirmPassword' class="row-start-4 col-start-1 ">Confirm password</label>
 		<input
 			type="password"
+			class="p-2 rounded-md col-start-2 col-end-4 row-start-4 bg-pink shaded big-shade stretch"
 			name="confirmPassword"
-			class="w-11/12 p-2 rounded-md outline-none row-start-3 col-start-2 shaded big-shade {password == confirmPassword ? 'bg-green' : 'bg-pink'}"
 			id="confirmPassword"
 			bind:value={confirmPassword}
+			required
 		/>
-		<label for='checkbox' class="row-start-4 col-start-1">Verify email?</label>
-		<input id='checkbox' class='row-start-4 col-start-2' type='checkbox' bind:checked={verifyEmail}>
+		<label for='checkbox' class="row-start-5 col-start-2 col-end-4">Send email validation</label>
+		<input type='checkbox' class='row-start-5 col-start-1'/>
 		<button
-			class="p-2 pl-6 pr-6 row-start-5 col-start-1 rounded-md outline-none border-black border-2 mb-1 bg-green shaded big-shade"
+			class="p-2 pl-6 pr-6 rounded-md outline-none border-black border-2 mb-1 bg-green shaded big-shade row-start-6 col-start-1"
 			type="submit">Register
 		</button>
-		<p class='row-start-6 col-start-1 col-end-3'>*if you verify your email, you can reset your password should you forget it.</p>
+
 	</form>
-	{verifyEmail}
+	<p class='p-6'>*if you verify your email, you can reset your password should you forget it.</p>
+
+</div>
 </div>
 
 <style>

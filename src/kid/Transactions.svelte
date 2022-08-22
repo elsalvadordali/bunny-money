@@ -7,13 +7,15 @@
 </script>
 
 	{#if transactions}
-	<div class={ openBox ? 'link text-4xl bg-yellow' : 'bg-green rounded-xl p-2 mt-4 w-full'}>
-		<button on:click={() => openBox = !openBox} class="link underline bg-green">
+	<div class='bg-green rounded-xl mb-4 mt-4 p-2'>
+		<button 
+			on:click={() => openBox = !openBox} 
+			class={ openBox ? 'link text-4xl lh-1 bg-green' : 'link underline bg-green'}>
 			{openBox ? '×' : `see ${accountType} transactions`}
 		</button>
 		{#if openBox}
 			{#if transactions && transactions.length > 0}
-			<div class="w-full mt-4 border-black border-2 rounded-xl p-2">
+			<div class="border-black border-2 rounded-xl p-2">
 				<h2 class='p-2 text-xl'>{accountType} transactions</h2>
 				<div class="w-full flex justify-evenly border-black border-b-2">
 					<p class="bold ">Amount</p>
@@ -21,7 +23,7 @@
 				</div>
 				<div class='h-60 scroll-content'>
 					{#each transactions as transaction}
-						<div class="border-pink border-b-2">
+						<div class="border-black border-b-2">
 							<div class="w-full line">
 								<p class="">{transaction.date}</p>
 							</div>

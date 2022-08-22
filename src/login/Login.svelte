@@ -17,7 +17,6 @@
 	let isParent = true;
 	let user: userType = null;
 	let kid: kidObj | null | 0 = null;
-
 	/**
 	 * 
 	 * Takes the user input, checks if isParent, authenticates. If kid, checks if kid exists in firestore
@@ -67,22 +66,19 @@
 						signOut(auth)
 						localStorage.clear()
 					}
-
 				}
 			})
-			
 		}
 	}
-
-	
 
 </script>
 
 <Confirm bind:boxOpen {message} />
-<div id='login' class="bg-yellow rounded-r-xl rounded-b-xl p-2 mb-8 w-360">
+<div class='center col w-full'>
+<div id='login' class="bg-yellow rounded-r-xl rounded-b-xl p-2 mb-8 w-90">
 	<form on:submit|preventDefault={login} class="grid grid-row-5 grid-col-4 gap-4 w-full stretch">
 		{#if isParent}
-		<label class="border-black border-b-2 italic selected clickable col-start-1 row-start-1"
+		<label class="border-black border-b-2 italic selected clickable col-start-1 row-start-1 "
 		><input type="radio" class="hidden" bind:group={isParent} value={true} />Parent login</label
 	>
 	<label class="clickable col-end-2 row-start-1 "
@@ -100,7 +96,7 @@
 		<input
 			type="email"
 			autocapitalize="off"
-			class="p-2 rounded-md col-start-2 h-12 row-start-2 bg-pink shaded big-shade stretch"
+			class="p-2 rounded-md col-start-2 h-12 row-start-2 bg-pink shaded big-shade stretch w-90"
 			name="email"
 			id="email"
 			bind:value={email}
@@ -112,7 +108,7 @@
 			autocapitalize="off"
 			minlength="6"
 			maxlength="32"
-			class="p-2 rounded-md col-start-2 row-start-3 bg-pink shaded big-shade stretch"
+			class="p-2 rounded-md col-start-2 row-start-3 bg-pink shaded big-shade stretch w-90"
 			name="password"
 			id="password"
 			bind:value={password}
@@ -122,7 +118,7 @@
 			<label for="name" class=" inline-block col-start-1 row-start-4">Kid's name</label>
 			<input
 				type="text"
-				class="p-2 rounded-md col-start-2 row-start-4 bg-pink shaded big-shade stretch"
+				class="p-2 rounded-md col-start-2 row-start-4 bg-pink shaded big-shade stretch w-90"
 				name="name"
 				id="name"
 				bind:value={name}
@@ -132,7 +128,7 @@
 
 		<button
 			type="submit"
-			class="p-2 row-start-5 col-start-1 rounded-md border-black mb-1 border-2 bg-pink shaded single-line pl-6 pr-6 mr-4"
+			class="p-2 row-start-5 col-start-1 rounded-md border-black mb-1 border-2 bg-green shaded single-line pl-6 pr-6 mr-4"
 			>Login</button
 		>
 		<div class="col-start-2 row-start-5">
@@ -140,10 +136,15 @@
 		</div>
 	</form>
 </div>
+</div>
 <Toast bind:visible={visible} bind:message={message} />
 
 <style>
 	.selected::before {
 		content: '>> ';
+	}
+	input[type=text], input[type=button] {
+		-webkit-appearance: none;
+		-webkit-border-radius: 0;
 	}
 </style>
