@@ -17,20 +17,21 @@
 	let isParent = true;
 	let user: userType = null;
 	let kid: kidObj | null | 0 = null;
+
 	/**
 	 * 
 	 * Takes the user input, checks if isParent, authenticates. If kid, checks if kid exists in firestore
 	 */
 	const login = async () => {
 		message = 'Logging in...'
-					visible = true
+		visible = true
 		if (isParent) {
 			await signInWithEmailAndPassword(auth, email, password)
 			.then(async (value) => {
 				const parRef = doc(db, 'parents', value.user.uid)
 				let userData = await getDoc(parRef)
 				if (userData) {
-					let receivedData: userType = userData.data()
+					let receivedData: any = userData.data()
 					parent.set({...receivedData})
 				}
 			})
@@ -54,9 +55,9 @@
 					gottedData.isParent = false
 					let kid = gottedData.kids.find((arrKid: kidObj) => {
 						if (arrKid && arrKid.name.toLowerCase() == name.toLowerCase()) {
-							return arrKid;
+							return arrKid
 						}
-					});
+					})
 					if (kid) {
 						parent.set(kid);
 					} else {

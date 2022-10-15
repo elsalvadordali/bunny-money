@@ -22,8 +22,9 @@
 		if (user) {
 			kid.name = newName
 			let n = updateKid(kid);
-			if (n === 1) message = 'Something went wrong. Reload and try again.'
-			else message = `Name changed to ${kid.name}`
+			//if (n === 1) message = 'Something went wrong. Reload and try again.'
+			//else 
+			message = `Name changed to ${kid.name}`
 			visible = true
 			parent.updateKid(kid);
 		}
