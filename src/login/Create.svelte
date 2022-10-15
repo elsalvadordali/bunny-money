@@ -19,6 +19,7 @@
 	console.log(user.kids.length)
 	let kid: kidObj = {
 		name: '',
+		dateOpened: new Date().valueOf(),
 		kid: user.kids.length > 0 ? user.kids[user.kids.length - 1].kid + 1 : 1, 
 		isParent: false,
 		uid: user.uid || '',

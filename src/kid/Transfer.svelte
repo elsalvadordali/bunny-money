@@ -24,7 +24,6 @@ import Toast from "../Toast.svelte";
      * The main transfer function used to shuffle funds from one person to another... 
      **/ 
     function transfer() {
-        console.log(amount)
         if (amount) {
             if (checking2savings && kid.checkingAccount.balance >= amount) {
                 kid.checkingAccount.balance -= amount

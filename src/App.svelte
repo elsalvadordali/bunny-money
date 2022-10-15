@@ -13,7 +13,7 @@
 	let visible = false
 
 	let user: userType | kidObj | null = null
-	parent.subscribe((val) => (user = val));
+	parent.subscribe((val) => (user = val))
 	
 </script>
      

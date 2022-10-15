@@ -8,7 +8,6 @@ export function verifyAmount(str: string): number | false {
   if (res && res[0] && typeof res[0] == 'string') return parseFloat(res[0])
   return false
 }
-
 export function convertDate2String(date: Date): string {
   let year = date.getFullYear()
   let month = date.getMonth() + 1
@@ -19,12 +18,16 @@ export function convertString2Date(str: string): Date {
   return new Date(str)
 }
 export function calcAllowance(kid: kidObj) {
+  console.log(kid)
+  let incrementBy = howManyDaysIn(kid.checkingAccount.frequency) * 24 * 60 * 60 * 1000
+  console.log(incrementBy, new Date().valueOf(), kid.dateOpened, kid.dateOpened.valueOf())
+  if (new Date().valueOf() - kid.dateOpened < incrementBy) return
+  console.log(" time to calculate")
   let last = kid.checkingAccount.transactions.find(transaction => {
     if (transaction.memo == 'allowance') return transaction
   })
   if (last) {
     let previousAllowance = convertString2Date(last.date).valueOf()
-    let incrementBy = howManyDaysIn(kid.checkingAccount.frequency) * 24 * 60 * 60 * 1000
     while (previousAllowance + incrementBy < new Date().valueOf()) {
       previousAllowance += incrementBy
       kid.checkingAccount.balance += kid.checkingAccount.allowance
@@ -55,23 +58,24 @@ export function calcAllowance(kid: kidObj) {
   return kid.checkingAccount.transactions
 }
 export function calcInterest(kid: kidObj) {
+  let incrementBy = howManyDaysIn(kid.savingsAccount.compounded) * 24 * 60 * 60 * 1000
+  if (new Date().valueOf() - kid.dateOpened < incrementBy) return
   let last = kid.savingsAccount.transactions.find(transaction => {
     if (transaction.memo == 'interest') return transaction
   })
   if (last) {
     let previous = convertString2Date(last.date).valueOf()
-    let incrementBy = howManyDaysIn(kid.savingsAccount.compounded) * 24 * 60 * 60 * 1000
     if (previous + incrementBy < new Date().valueOf()) {
-    while (previous + incrementBy < new Date().valueOf()) {
-      previous += incrementBy
-      kid.savingsAccount.balance += kid.savingsAccount.balance * (kid.savingsAccount.interest / 100)    
-      let newTransaction: transactionType = {
-        amount: kid.savingsAccount.interest,
-        currentBalance: kid.savingsAccount.balance,
-        date: convertDate2String(new Date()),
-        memo: 'interest'
-      }
-      kid.savingsAccount.transactions = [newTransaction, ...kid.savingsAccount.transactions]
+      while (previous + incrementBy < new Date().valueOf()) {
+        previous += incrementBy
+        kid.savingsAccount.balance += kid.savingsAccount.balance * (kid.savingsAccount.interest / 100)    
+        let newTransaction: transactionType = {
+          amount: kid.savingsAccount.interest,
+          currentBalance: kid.savingsAccount.balance,
+          date: convertDate2String(new Date()),
+          memo: 'interest'
+        }
+        kid.savingsAccount.transactions = [newTransaction, ...kid.savingsAccount.transactions]
       }
     updateKid(kid)
     parent.updateKid(kid)
@@ -91,7 +95,6 @@ export function calcInterest(kid: kidObj) {
   }
   return kid.savingsAccount.transactions
 }
-
 export function howManyDaysIn(str: string): number {
   if (str == 'day') return 1
   if (str == 'week') return 7

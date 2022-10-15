@@ -39,15 +39,17 @@ export type ParentObject = userType & {
 }
 
 // Gives you ability to do this:
-if (someObject.type === UserKind.Parent) {
+//if (someObject.type === UserKind.Parent) {
   // you know for sure this is a parent
-}
+//}
+
 
 export type UserKidOrNull = userType | kidObj | null
 
 export type kidObj = {
   uid: string
   kid: number
+  dateOpened: number
   name: string
   isParent: false
   checkingAccount: checkingType
@@ -77,5 +79,4 @@ export type savingsType = {
   compounded: string
   transactions: transactionType[]
 }
-
 export type accountTypes = [checkingType?, savingsType?]

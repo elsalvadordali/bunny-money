@@ -1,15 +1,15 @@
 <script lang="ts">
-	import type { kidObj } from '../types';
-	import Request from './Request.svelte';
-	import Pending from './Pending.svelte';
-	import Transactions from './Transactions.svelte';
+	import type { kidObj } from '../types'
+	import Request from './Request.svelte'
+	import Pending from './Pending.svelte'
+	import Transactions from './Transactions.svelte'
 	import Transfer from './Transfer.svelte'
-	import Logout from '../login/Logout.svelte';
-	import { parent } from '../stores';
-	import { onMount } from 'svelte';
-	import { calcAllowance, calcInterest } from '../scripts';
-	import { fly } from 'svelte/transition';
-	import { signOut } from 'firebase/auth';
+	import Logout from '../login/Logout.svelte'
+	import { parent } from '../stores'
+	import { onMount } from 'svelte'
+	import { calcAllowance, calcInterest } from '../scripts'
+	import { fly } from 'svelte/transition'
+	import { signOut } from 'firebase/auth'
 	import { auth } from '../checkAuth'
 
 	let kid: kidObj = null;
@@ -21,7 +21,7 @@
 	onMount(() => {
 			if (kid) {
 				calcAllowance(kid);
-				calcInterest(kid)
+				if (kid.savingsAccount.transactions.length > 0) calcInterest(kid)
 			} else {
 				signOut(auth)
 			}
@@ -79,7 +79,7 @@
 			<div
 				class="bg-green rounded-full w-60 h-60 center col m-auto mt-8 mb-8 circle"
 			>
-				<h2 class="mb-2 italic">savings account</h2>
+				<h2 class="text-center mb-2 italic">savings account</h2>
 				<h3 class="text-4xl lh-4 text-center ">
 					${savings.toFixed(2) || 0.0}
 				</h3>
