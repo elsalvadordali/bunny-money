@@ -59,13 +59,4 @@
   </div>
 {/if}
 
-<style>
-  .small {
-    max-height: 30vh;
-  }
-  button.link {
-    margin-top: 0;
-    cursor: pointer;
-    display: block;
-  }
-</style>
+
