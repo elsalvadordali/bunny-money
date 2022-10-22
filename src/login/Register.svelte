@@ -50,24 +50,24 @@
 
 <Toast bind:visible bind:message />
 <div class="center col w-full">
-  <div class="bg-amber rounded-xl p-2 mb-8 w-90">
+  <div class="bg-amber rounded-xl p-2 pt-4 mb-8 w-90">
     <form
       on:submit|preventDefault={register}
-      class="grid grid-row-6 grid-col-3 gap-4  stretch"
+      class="grid grid-row-6 grid-col-6 gap-4 stretch"
     >
-      <label for="email" class=" inline-block col-start-1 row-start-2"
+      <label for="email" class=" inline-block col-start-1 col-span-2 row-start-2"
         >E-mail</label
       >
       <input
         type="email"
         autocapitalize="off"
-        class="p-2 rounded-md col-start-2 col-end-4 row-start-2 bg-pink shaded big-shade stretch outline-none"
+        class="p-2 rounded-md col-start-2 col-span-3 row-start-2 bg-pink shaded big-shade w-90 outline-none"
         name="email"
         id="email"
         bind:value={email}
         required
       />
-      <label for="password" class="inline-block col-start-1 row-start-3"
+      <label for="password" class="inline-block col-start-1 col-span-2 row-start-3"
         >Password</label
       >
       <input
@@ -75,29 +75,29 @@
         autocapitalize="off"
         minlength="6"
         maxlength="32"
-        class="p-2 rounded-md col-start-2 col-end-4 row-start-3 bg-pink shaded big-shade stretch outline-none"
+        class="p-2 rounded-md col-start-2 col-span-3 row-start-3 bg-pink shaded big-shade stretch outline-none"
         name="password"
         id="password"
         bind:value={password}
         required
       />
-      <label for="confirmPassword" class="row-start-4 col-start-1 "
+      <label for="confirmPassword" class="row-start-4 col-start-1 col-span-2"
         >Confirm password</label
       >
       <input
         type="password"
-        class="p-2 rounded-md col-start-2 col-end-4 row-start-4 bg-pink shaded big-shade stretch outline-none"
+        class="p-2 rounded-md col-start-2 col-span-3 row-start-4 bg-pink shaded big-shade stretch outline-none"
         name="confirmPassword"
         id="confirmPassword"
         bind:value={confirmPassword}
         required
       />
-      <label for="checkbox" class="row-start-5 col-start-1 "
+      <label for="checkbox" class="row-start-5 col-start-1 col-span-2"
         >Send email validation? <sup>*</sup></label
       >
-      <input type="checkbox" class="row-start-5 col-start-2 outline-none" />
+      <input type="checkbox" class="row-start-5 col-start-2 col-span-1 outline-none" />
       <button
-        class="p-2 pl-6 pr-6 rounded-md outline-none border-black border-2 mb-1 bg-yellow shaded big-shade row-start-6 col-start-1"
+        class="p-2 pl-6 pr-6 rounded-md outline-none border-black border-2 mb-1 bg-yellow shaded big-shade row-start-6 col-start-1 col-span-2 hover:mb-0 hover:mt-1"
         type="submit"
         >Register
       </button>

@@ -75,14 +75,14 @@
 
 <Confirm bind:boxOpen {message} />
 <div class="center col w-full">
-  <div id="login" class="bg-amber rounded-r-xl rounded-b-xl p-2 mb-8 w-90">
+  <div id="login" class="bg-amber rounded-r-xl rounded-b-xl p-2 pt-8 mb-8">
     <form
       on:submit|preventDefault={login}
-      class="grid grid-row-5 grid-col-4 gap-4 w-full stretch"
+      class="grid grid-row-5 grid-col-6 gap-4 w-full stretch"
     >
       {#if isParent}
         <label
-          class="border-black border-b-2 italic selected clickable col-start-1 row-start-1 "
+          class="border-black border-b-2 italic selected clickable col-start-1 col-end-3 row-start-1 mb-4"
           ><input
             type="radio"
             class="hidden"
@@ -90,7 +90,7 @@
             value={true}
           />Parent login</label
         >
-        <label class="clickable col-start-2 row-start-1 "
+        <label class="clickable col-start-3 col-end-6 row-start-1 mb-4"
           ><input
             type="radio"
             class="hidden"
@@ -99,7 +99,7 @@
           />Kid login</label
         >
       {:else}
-        <label class="clickable col-start-1 row-start-1"
+        <label class="clickable col-start-1 col-end-3 row-start-1 mb-4"
           ><input
             type="radio"
             class="hidden"
@@ -108,7 +108,7 @@
           />Parent login</label
         >
         <label
-          class="border-black border-b-2 italic selected clickable col-start-2 row-start-1"
+          class="border-black border-b-2 italic selected clickable col-start-3 col-end-6 row-start-1 mb-4"
           ><input
             type="radio"
             class="hidden"
@@ -117,13 +117,13 @@
           />Kid login</label
         >
       {/if}
-      <label for="email" class=" inline-block col-start-1 row-start-2"
+      <label for="email" class=" inline-block col-start-1 col-end-3 row-start-2"
         >E-mail</label
       >
       <input
         type="email"
         autocapitalize="off"
-        class="p-2 rounded-md col-start-2 row-start-2 bg-pink shaded big-shade stretch w-90 outline-none"
+        class="p-2 rounded-md col-start-2 col-end-6 row-start-2 bg-pink shaded big-shade w-90 outline-none"
         name="email"
         id="email"
         bind:value={email}
@@ -137,7 +137,7 @@
         autocapitalize="off"
         minlength="6"
         maxlength="32"
-        class="p-2 rounded-md col-start-2 row-start-3 bg-pink shaded big-shade stretch w-90 outline-none"
+        class="p-2 rounded-md col-start-2 col-end-6 row-start-3 bg-pink shaded big-shade w-90 outline-none"
         name="password"
         id="password"
         bind:value={password}
@@ -149,9 +149,9 @@
         >
         <input
           type="text"
-          minlength="6"
+          minlength="1"
           maxlength="32"
-          class="p-2 rounded-md col-start-2 row-start-4 bg-pink shaded big-shade stretch w-90 outline-none"
+          class="p-2 rounded-md col-start-2 col-end-6 row-start-4 bg-pink shaded big-shade w-90 outline-none"
           name="name"
           id="name"
           bind:value={name}
@@ -161,10 +161,10 @@
 
       <button
         type="submit"
-        class="p-2 row-start-5 col-start-1 rounded-md border-black mb-1 border-2 bg-yellow shaded single-line pl-6 pr-6 mr-4"
+        class="p-2 row-start-5 col-start-1 col-end-3 rounded-md border-black mb-1 border-2 bg-yellow shaded single-line pl-6 pr-6 mr-4 hover:mb-0 hover:mt-1"
         >Login</button
       >
-      <div class="col-start-2 row-start-5">
+      <div class="col-start-3 row-start-5 flex justify-center items-center">
         <a href="/reset-password" class="p-2 underline">Forgot password?</a>
       </div>
     </form>
@@ -175,5 +175,13 @@
 <style>
   .selected::before {
     content: '>> ';
+  }
+  .selected {
+    font-family: 'DM Serif Display', serif;
+    letter-spacing: 1px;
+  }
+  input:user-invalid {
+    background-color: #91bab2;
+    content: '**';
   }
 </style>

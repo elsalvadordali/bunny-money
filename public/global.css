@@ -1,11 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap');
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6, .memoi {
   font-family: 'DM Serif Display', serif;
 }
-.carrot {
-
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
 .shaded {
   box-shadow: 2px 2px 0 #124653;
 }
@@ -27,7 +36,7 @@ h1, h2, h3, h4, h5, h6 {
 button:hover,
 button:focus,
 button:active {
-  margin-top: 0.25em;
+  margin-top: 0.125em;
   margin-bottom: 0;
   box-shadow: none;
 }
@@ -40,14 +49,10 @@ button.link {
   display: block;
 }
 
-.circle h3 {
-  font-size: 8vw;
-  line-height: 11vw;
+input:user-invalid {
+  box-shadow: 2px 2px 0 #124653;
 }
-@media screen and (min-width: 800px) {
-  .w-360 {
-    max-width: 720px  
-  }
-  .w-full {
-  }
+
+html {
+  scroll-behavior: smooth;
 }
