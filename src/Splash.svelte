@@ -1,85 +1,143 @@
-<script lang='ts'>
-	import Register from './login/Register.svelte';
-	import Login from './login/Login.svelte';
+<script lang="ts">
+  import Register from './login/Register.svelte'
+  import Login from './login/Login.svelte'
 
-	let loginTab = true;
+  let loginTab = true
 </script>
 
-<div class='center col bg-green'>
-	<div class='w-100 bg-pink center'>
-		<div
-			class='rounded-full m-8 bg-black w-60 h-60 center col text-white'
-		>
-			<h2 class='italic text-4xl'>Bunny</h2>
-			<h1 class='text-5xl'>Money!</h1>
-		</div>
-	</div>
+<div class="flex flex-col bg-green align-center items-center">
+  <div class="w-100 bg-pink flex justify-center pt-32 pb-16 self-stretch">
+    <div class="rounded-full bg-amber w-60 h-60" />
+    <div class="bunnay" />
+  </div>
+  <div
+    class="bg-yellow pt-36 pb-36 self-stretch flex flex-col items-center flex-wrap"
+  >
+    <h1 class="text-5xl m-5">Bunny</h1>
+    <h2 class="text-5xl m-5">Money</h2>
+  </div>
+  {#if loginTab}
+    <div class="pt-8 p-2 w-full flex flex-col max-w-xl">
+      <div class="w-90">
+        <label class="bg-amber inline-block pt-2 pb-2 rounded-t-xl w-half">
+          <input
+            type="radio"
+            bind:group={loginTab}
+            name="switchForm"
+            value={true}
+            class="hidden"
+          />
+          <h2 class="text-xl inline-block p-4 rounded-t-md">Login</h2>
+        </label>
+        <label class="pt-2 pb-2 inline-block w-half">
+          <input
+            type="radio"
+            bind:group={loginTab}
+            name="switchForm"
+            value={false}
+            class="hidden"
+          />
+          <h2 class="text-xl inline-block p-4 rounded-t-md ">Register</h2>
+        </label>
+      </div>
+      <Login />
+    </div>
+  {:else}
+    <div class="pt-8 p-2 w-full flex flex-col max-w-xl">
+      <div class="w-90 reverse">
+        <label class="pt-2 pb-2 inline-block w-half">
+          <input
+            type="radio"
+            bind:group={loginTab}
+            name="switchForm"
+            value={true}
+            class="hidden"
+          />
+          <h2 class="text-xl inline-block p-4">Login</h2>
+        </label>
+        <label class="bg-amber inline-block pt-2 pb-2 rounded-t-xl w-half">
+          <input
+            type="radio"
+            bind:group={loginTab}
+            name="switchForm"
+            value={false}
+            class="hidden"
+          />
+          <h2 class="text-xl inline-block p-4">Register</h2>
+        </label>
+      </div>
+      <Register />
+    </div>
+  {/if}
 
-	{#if loginTab}
-		<div class='pt-8 p-2 w-full col center'>
-			<div class='w-90'>
+  <div class="p-4 max-w-5xl ">
+    <h1 class="text-3xl m-4">The banking* app for kids</h1>
+    <ul
+      class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 justify-items-center"
+    >
+      <li
+        class="pl-16 carrot rounded-xl border-black border-2 flex flex-col justify-center"
+      >
+        <h3>Teach your kid financial literacy</h3>
+        <p>
+          Let them control their account, while being the bank behind the scene
+        </p>
+      </li>
+      <li
+        class="pl-16 carrot rounded-xl border-black border-2 flex flex-col justify-center"
+      >
+        <h2>Easy to use</h2>
+        <p>No credit cards. No paper work. Just virtual accounts</p>
+      </li>
+      <li
+        class="pl-16 carrot rounded-xl border-black border-2 flex flex-col justify-center"
+      >
+        <h2>Download on your phone</h2>
+        <p>Save to your homescreen and access it anywhere</p>
+      </li>
+      <li
+        class="pl-16 carrot rounded-xl border-black border-2 flex flex-col justify-center"
+      >
+        <h2>No ads! Ever</h2>
+        <p>Ads on kids apps should be illegal</p>
+      </li>
+      <li
+        class="pl-16 carrot rounded-xl border-black border-2 flex flex-col justify-center"
+      >
+        <h2>Set custom interest rates on savings</h2>
+        <p>You control the amount and the time frame</p>
+      </li>
+      <li
+        class="pl-16 carrot rounded-xl border-black border-2 flex flex-col justify-center"
+      >
+        <h2>It's not real</h2>
+        <p>It's basically a sim, where the parent is the bank. Don't overthing it</p>
+      </li>
+    </ul>
 
-			<label class='bg-yellow inline-block pt-2 pb-2 rounded-t-xl w-half'>
-				<input type='radio' bind:group={loginTab} name='switchForm' value={true} class='hidden' />
-				<h2 class='text-xl inline-block pt-4 pb-4 rounded-t-md'>Login</h2>
-			</label>
-			<label class='pt-2 pb-2 inline-block w-half'>
-				<input type='radio' bind:group={loginTab} name='switchForm' value={false} class='hidden' />
-				<h2 class='text-xl inline-block p-4 rounded-t-md '>Register</h2>
-			</label>
-			</div>
-			<Login />
-		</div>
-	{:else}
-		<div class='pt-8 p-2 w-full col center'>
-			<div class='w-90 reverse'>
-				<label class='pt-2 pb-2 inline-block w-half'>
-					<input type='radio' bind:group={loginTab} name='switchForm' value={true} class='hidden' />
-					<h2 class='text-xl inline-block p-4'>Login</h2>
-				</label>
-				<label class='bg-yellow inline-block pt-2 pb-2 rounded-t-xl w-half'>
-					<input type='radio' bind:group={loginTab} name='switchForm' value={false} class='hidden' />
-					<h2 class='text-xl inline-block p-4'>Register</h2>
-				</label>
-			</div>
-			<Register />
-		</div>
-	{/if}
-
-	<div class='p-4 w-360 '>
-		<h1 class='text-3xl m-4'>The banking* app for kids</h1>
-
-		<h3 class='text-2xl m-4'>What is it?</h3>
-		<p class='ml-4 mr-4'>
-			Bunny Money is a progressive web app for your phone that enables your child to learn to save money.
-		</p>
-		<h4 class='text-xl m-4'>Parent Component</h4>
-		<p class='m-4'>
-			Parents can 'transfer' money to their kid's checking account. When the kid wants to buy
-			something, they use the app to request it in cash, thus turning the parents into atms
-			essentially.
-		</p>
-		<p class='m-4'>
-			You can, add/remove kids, adjust the allowance amount and period, as well as set up a savings
-			account interest rate, and compound period.
-		</p>
-		<h4 class='text-xl m-4'>Kid Component</h4>
-		<p class='m-4'>
-			When a kid logs into their (parent-created) account, they can see how much money they have in
-			their checking and/or savings accounts. From their checking account, they can request money,
-			or withdraw money, as well as see the past 30 transactions. Make sure not to withdraw more
-			than you have, or you'll have a negative balance, which accumulates penalties!
-		</p>
-		<p class='m-4'>
-			In their savings account, they can watch their money grow by accumulating interest. They can
-			also transfer money to their checking accounts. Money in savings cannot be directly withdrawn
-			by kid or parent.
-		</p>
-
-		<h5 class='text-sm m-4 italic'>*not a real bank, more of a sim, really</h5>
-
-		<h2 class='text-3xl m-4'>Download now!</h2>
-		<p class='m-4'>
-			Open this site on safari or your iPhone or iPad, press the 'share' button at the bottom, then 'Add to Homescreen'.</p>
-	</div>
+    <h1 class="text-3xl m-4 text-center">Parents have the power</h1>
+    <h3 class="text-2xl m-4 text-center">You are the bank!</h3>
+  </div>
 </div>
+
+<style>
+  .carrot {
+    background: url('/carrot.png');
+    background-position: 5% center;
+    background-size: 10%;
+    background-repeat: no-repeat;
+    height: 200px;
+    width: 300px;
+    box-shadow: 2px 2px 0 black;
+  }
+  .bunnay {
+    background: url('./bunny.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 300px;
+    height: 360px;
+    position: absolute;
+    top: 10px;
+  }
+</style>

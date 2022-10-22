@@ -14,14 +14,15 @@
     let src = '/images/user-circle.svg'
 	let newKidModal = false;
 
+	window.scroll(0,0)
 	
 </script>
 
-<div class="bg-green cover scroll-content">
+<div class="bg-green cover scroll-content flex flex-col items-center">
 	{#if newKidModal}
 		<CreateKid bind:value={newKidModal} />
 	{/if}
-	<div class='p-2'>
+	<div class='p-2 max-w-2xl'>
 		<h3 class="m-6">
 			Welcome,
 			<p class="underline">
@@ -29,15 +30,15 @@
         	</p>
 		</h3>
 		{#if user && user.kids.length == 0}
-			<div class="center col p-4 m-4">
-				<p class="m-4">No kids accounts set up yet.</p>
+			<div class="center col p2">
+				<p class="mt-4 mb-4">No kids accounts set up yet.</p>
 				<button
 					on:click={() => (newKidModal = !newKidModal)}
-					class="bg-yellow rounded-md border-black border-2 shaded big-shade mb-1">
+					class="bg-yellow rounded-md border-black border-2 shaded big-shade mb-1 p-2 pl-4 pr-4 hover:mb-0 hover:mt-1">
 					Create now
 				</button>
 			</div>
-			<div class='center'>
+			<div class='center mt-6'>
 				<Logout />
 			</div>
 		{:else if user}
@@ -48,14 +49,14 @@
 				</div>
 			{/each}
 			<div
-				class="bg-pink border-black border-2 shaded rounded-xl m-2 p-2 pt-8 pb-8 mb-4 mt-4 center">
+				class="bg-pink border-black border-2 shaded rounded-xl m-2 p-2 pt-8 pb-8 mb-4 mt-4 flex flex-col items-center">
 				<button
 					on:click={() => (newKidModal = !newKidModal)}
-					class="border-black border-2 rounded-md shaded mb-1 p-2 pl-6 pr-6 bg-yellow">
+					class="border-black border-2 rounded-md shaded mb-1 p-2 pl-6 pr-6 bg-yellow hover:mb-0 hover:mt-1">
 					Create another account
 				</button>
 			</div>
-			<div class='center'>
+			<div class='flex flex-col items-center'>
 				<Logout />
 			</div>
 		{/if}

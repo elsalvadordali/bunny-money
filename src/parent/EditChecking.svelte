@@ -1,100 +1,71 @@
 <script lang="ts">
-    import type { kidObj } from "../types";
+  import type { kidObj } from '../types'
 
-    import AddFunds from "./AddFunds.svelte";
-    import RequestMoney from "./RequestMoney.svelte";
+  import AddFunds from './AddFunds.svelte'
+  import RequestMoney from './RequestMoney.svelte'
+  import Checking from '../components/Checking.svelte'
 
-    function clickOutside(node: any) {
-		const handleClick = (event: Event) => {
-			if (node && !node.contains(event.target) && !event.defaultPrevented) {
-				node.dispatchEvent(new CustomEvent('click_outside', node));
-			}
-		};
-		document.addEventListener('click', handleClick, true);
-		return {
-			destroy() {
-				document.removeEventListener('click', handleClick, true);
-			}
-		};
-	}
-    export let kid: kidObj
-    export let openChecking = false
+  window.scroll({
+    top: 0,
+    behavior: 'smooth'
+  })
 
-    let amount = 0
-    let seePreviousTransactions = false
+  function clickOutside(node: any) {
+    const handleClick = (event: Event) => {
+      if (node && !node.contains(event.target) && !event.defaultPrevented) {
+        node.dispatchEvent(new CustomEvent('click_outside', node))
+      }
+    }
+    document.addEventListener('click', handleClick, true)
+    return {
+      destroy() {
+        document.removeEventListener('click', handleClick, true)
+      },
+    }
+  }
+  export let kid: kidObj
+  export let openChecking = false
+
+  let seePreviousTransactions = false
 </script>
+
 {#if openChecking && kid}
-<div class="absolute center w-full h-full bg-black75 top-0 left-0 ">
-    <div class="center w-full h-full pt-6 w-360">
-        <div 
+  <div
+    class="absolute flex flex-col items-center w-full h-full bg-black75 top-0 left-0 pb-6"
+  >
+    <div class="flex flex-col items-center w-full h-full max-w-xl pb-6">
+      <div
         use:clickOutside
         on:click_outside={() => (openChecking = false)}
-        class="bg-yellow border-black border-2 p-2 rounded-xl shaded w-full m-4">
-        <div class="w-full flex flex-row justify-end">
-            <button
-                class='bg-pink rounded-md border-black border-2 shaded mb-1 big-shade text-4xl flex center px-2'
-                on:click={() => (openChecking = false)}>×</button>
+        class="bg-yellow border-black border-2 pb-6 pl-4 pr-4 pt-2 rounded-xl shaded w-full m-4 "
+      >
+        <div class="w-full flex flex-col justify-center items-end">
+          <button
+            class="bg-amber leading-6 rounded-md border-black border-2 shaded mb-1 big-shade text-4xl flex justify-center px-2 col-start-12 hover:mt-1 hover:mb-0"
+            on:click={() => (openChecking = false)}>×</button
+          >
         </div>
-            <h3 class="text-2xl text-center">Current balance: ${kid.checkingAccount.balance.toFixed(2)}</h3>
+        <h3 class="text-2xl text-center">
+          Current balance: {new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD',
+          }).format(kid.checkingAccount.balance)}
+        </h3>
 
-            <RequestMoney {kid} />
-            <AddFunds bind:name={kid.name} />
-
-            {#if seePreviousTransactions && kid.checkingAccount.transactions.length > 0}
-            <div>
-                <button
-                class="link text-4xl bg-yellow"
-                on:click={() => (seePreviousTransactions = false)}>×</button>
-                <div class="border-black border-2 rounded-xl shaded p-2">
-                    <div class="w-full flex justify-evenly border-black border-b-2">
-                        <p class="inline m-2 bold">Amount</p>
-
-                        <p class="inline m-2 bold">
-                            Balance
-                        </p>
-                    </div>
-                    <div class="scroll-content small">
-                    {#each kid.checkingAccount.transactions as transaction}
-                    <div class="border-pink border-b-2">
-                        <div class="w-full line">
-                            <p class="">{transaction.date}</p>
-                        </div>
-                        <div class="w-full flex justify-evenly">
-                            <p class="inline bold m-2 {transaction.amount < 0 && 'text-pink'}">{Number(transaction.amount).toFixed(2)}</p>
-
-                            <p class="inline m-2 {transaction.amount < 0 && 'text-pink'}">
-                                {Number(transaction.currentBalance).toFixed(2)}
-                            </p>
-                        </div>
-                        <p class="italic"><span class='bold'>memo:</span> {transaction.memo}</p>
-                    </div>
-           
-                    {/each}
-                    </div>
-                </div>
-            </div>
-            {:else if seePreviousTransactions && kid.checkingAccount.transactions.length == 0 }
-            <button on:click={() => seePreviousTransactions = false} class='link text-4xl bg-yellow'>×</button>
-            <div class="p-2 border-black border-2 rounded-xl">
-                <p>No transactions... yet</p>
-            </div>
-            {:else}
-            <button on:click={() => seePreviousTransactions = true} class='underline bg-yellow link'>See previous transactions</button>
-
-            {/if}
-        </div> 
-    </div>
-</div>
+        <RequestMoney {kid} />
+        <AddFunds bind:name={kid.name} />
+        <Checking {kid} />
+      </div>      </div>
+  </div>
 {/if}
 
-
 <style>
-    .small {
-        max-height: 30vh;
-    }
-    button.link {
-        margin-top: 0;
-        cursor: pointer;
-        display: block;
-    }
+  .small {
+    max-height: 30vh;
+  }
+  button.link {
+    margin-top: 0;
+    cursor: pointer;
+    display: block;
+  }
 </style>

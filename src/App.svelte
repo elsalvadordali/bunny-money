@@ -5,8 +5,7 @@
 	import Parent from './parent/index.svelte'
 	import Splash from './Splash.svelte'
 	import { parent } from './stores';
-	import { fetchUser } from './checkAuth';
-	import { onMount } from 'svelte';
+	import Footer from './Footer.svelte';
 	import Toast from './Toast.svelte'
 
 	let message = ''
@@ -29,3 +28,9 @@
 {:else}
 <Splash />
 {/if}
+<Footer />
+<style global lang="postcss">
+	@tailwind base;
+	@tailwind components;
+	@tailwind utilities;
+  </style>
