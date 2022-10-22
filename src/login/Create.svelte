@@ -158,7 +158,7 @@
             >
             <input
               type="number"
-              class="bg-pink w-23 m-4 rounded-md shaded big-shade p-2 col-start-2 row-start-1 w-1/2"
+              class="bg-pink w-23 m-4 rounded-md shaded big-shade p-2 col-start-2 row-start-1 w-1/2 outline-none"
               bind:value={kid.savingsAccount.balance}
             />
           </div>

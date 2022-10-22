@@ -30,15 +30,15 @@
         	</p>
 		</h3>
 		{#if user && user.kids.length == 0}
-			<div class="center col p-4 m-4">
-				<p class="m-4">No kids accounts set up yet.</p>
+			<div class="center col p2">
+				<p class="mt-4 mb-4">No kids accounts set up yet.</p>
 				<button
 					on:click={() => (newKidModal = !newKidModal)}
-					class="bg-yellow rounded-md border-black border-2 shaded big-shade mb-1">
+					class="bg-yellow rounded-md border-black border-2 shaded big-shade mb-1 p-2 pl-4 pr-4 hover:mb-0 hover:mt-1">
 					Create now
 				</button>
 			</div>
-			<div class='center'>
+			<div class='center mt-6'>
 				<Logout />
 			</div>
 		{:else if user}
